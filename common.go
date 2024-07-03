@@ -203,6 +203,6 @@ func about() {
 	fmt.Println(green, "   bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
-	fmt.Println(green, "   https://github.com/nausicaan/bowerbird.git")
+	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")
 	fmt.Println(reset)
 }

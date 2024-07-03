@@ -60,4 +60,4 @@ Flags `-r` and `-p` can accept multiple updates, chain together as many as you l
 
 ## License
 
-Code is distributed under [The Unlicense](https://github.com/farghul/free/blob/main/LICENSE.md) and is part of the Public Domain.
+Code is distributed under [The Unlicense](https://github.com/farghul/bowerbird/blob/main/LICENSE.md) and is part of the Public Domain.
