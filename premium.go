@@ -6,37 +6,8 @@ import (
 	"strings"
 )
 
-// Satis structure captures the contents of the composer.json file for typical premium plugins
-type Satis struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-}
-
-// ECP structure captures the contents of the composer.json file for Events Calendar Pro
-type ECP struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-	Require struct {
-		EventsCalendar string `json:"wpackagist-plugin/the-events-calendar"`
-	} `json:"require"`
-}
-
-// EVTP structure captures the contents of the composer.json file for Events Tickets Plus
-type EVTP struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-	Require struct {
-		EventsCalendar string `json:"wpackagist-plugin/the-events-calendar"`
-		EventsTicket   string `json:"wpackagist-plugin/event-tickets"`
-	} `json:"require"`
-}
-
 // A sequential list of tasks run to complete the program
 func quarterback() {
-	prepare()
 	checkout(upbranch)
 	tracking("Update Script")
 	script()
@@ -50,7 +21,7 @@ func quarterback() {
 
 // Premium directs the preliminary actions to determine if the program can continue
 func premium() {
-	assign(passed[2], passed[3])
+	assign(paid[0], paid[1])
 	os.Chdir(hmdr + bitbucket + folder[1])
 	learn()
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -85,7 +56,7 @@ func assign(p, t string) {
 
 // Run the update script on downloaded content
 func script() {
-	execute("sh", "-c", "scripts/update.sh ~/Downloads/"+folder[1]+"/")
+	execute("-e", "sh", "-c", "scripts/update.sh ~/Downloads/"+folder[1]+"/")
 }
 
 // Convert the structure back into json and overwrite the composer.json file
@@ -103,6 +74,6 @@ func correct() {
 
 // Tag the version so Satis can package it
 func tags() {
-	execute("git", "tag", "v"+satis.Version)
-	execute("git", "push", "origin", "--tags")
+	execute("-e", "git", "tag", "v"+satis.Version)
+	execute("-e", "git", "push", "origin", "--tags")
 }

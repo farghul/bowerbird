@@ -1,41 +1,54 @@
 package main
 
 import (
-	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
 )
 
-const (
-	reset     string = "\033[0m"
-	green     string = "\033[32m"
-	yellow    string = "\033[33m"
-	red       string = "\033[41m"
-	bv        string = "2.0"
-	relbranch string = "release/"
-	upbranch  string = "update/DESSO-"
-	halt      string = "program halted "
-	zero      string = "Not enough arguments supplied -"
-	bitbucket string = "/Bitbucket/"
-)
+func driver() {
+	data, err := os.ReadFile("secrets/jira.json")
+	inspect(err)
+	json.Unmarshal(data, &jira)
 
-var (
-	ecp            ECP
-	evtp           EVTP
-	satis          Satis
-	flag           = verify()
-	reader         = bufio.NewReader(os.Stdin)
-	hmdr, _        = os.UserHomeDir()
-	passed         = os.Args
-	inputs         = len(passed)
-	release        string
-	plugin         string
-	ticket         string
-	number, folder []string
-)
+	search := api(jira.Search)
+	json.Unmarshal(search, &desso)
+}
+
+func compiler(element string) []string {
+	var candidate []string
+	for i := 0; i < len(desso.Issues); i++ {
+		if strings.Contains(desso.Issues[i].Fields.Summary, element) {
+			candidate = append(candidate, desso.Issues[i].Fields.Summary)
+			candidate = append(candidate, desso.Issues[i].Key)
+		}
+		// if strings.Contains(desso.Issues[i].Fields.Summary, "wpackagist") {
+		// 	free = append(free, desso.Issues[i].Fields.Summary)
+		// 	free = append(free, desso.Issues[i].Key)
+		// }
+
+		// if strings.Contains(desso.Issues[i].Fields.Summary, "premium") {
+		// 	paid = append(paid, desso.Issues[i].Fields.Summary)
+		// 	paid = append(paid, desso.Issues[i].Key)
+		// }
+
+		// if strings.Contains(desso.Issues[i].Fields.Summary, "bcgov") {
+		// 	dev = append(dev, desso.Issues[i].Fields.Summary)
+		// 	dev = append(dev, desso.Issues[i].Key)
+		// }
+	}
+	return candidate
+}
+
+// Grab the ticket information from Jira in order to extract the DESSO-XXXX identifier
+func api(criteria string) []byte {
+	result := execute("-c", "curl", "--request", "GET", "--url", jira.Base+criteria, "--header", "Authorization: Basic "+jira.Token, "--header", "Accept: application/json")
+	return result
+}
 
 // Confirm the current working directory is correct
 func changedir() {
@@ -58,13 +71,40 @@ func prepare() {
 	} else {
 		branch = "development"
 	}
-	execute("git", "switch", branch)
-	execute("git", "pull")
+	execute("-e", "git", "switch", branch)
+	execute("-e", "git", "pull")
 }
 
 // Write a passed variable to a named file
 func document(name string, d []byte) {
 	inspect(os.WriteFile(name, d, 0644))
+}
+
+// Record a message to the log file
+func journal(message string) {
+	file, err := os.OpenFile("logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	inspect(err)
+	log.SetOutput(file)
+	log.Println(message)
+}
+
+// Run a terminal command using flags to customize the output
+func execute(variation, task string, args ...string) []byte {
+	osCmd := exec.Command(task, args...)
+	switch variation {
+	case "-e":
+		exec.Command(task, args...).CombinedOutput()
+	case "-c":
+		result, err := osCmd.Output()
+		inspect(err)
+		return result
+	case "-v":
+		osCmd.Stdout = os.Stdout
+		osCmd.Stderr = os.Stderr
+		err := osCmd.Run()
+		inspect(err)
+	}
+	return nil
 }
 
 // Get user input via screen prompt
@@ -75,21 +115,21 @@ func solicit(prompt string) string {
 }
 
 // Run standard terminal commands and display the output
-func execute(task string, args ...string) {
-	osCmd := exec.Command(task, args...)
-	osCmd.Stdout = os.Stdout
-	osCmd.Stderr = os.Stderr
-	err := osCmd.Run()
-	inspect(err)
-}
+// func execute(task string, args ...string) {
+// 	osCmd := exec.Command(task, args...)
+// 	osCmd.Stdout = os.Stdout
+// 	osCmd.Stderr = os.Stderr
+// 	err := osCmd.Run()
+// 	inspect(err)
+// }
 
 // Run a terminal command, then capture and return the output as a byte
-func capture(task string, args ...string) []byte {
-	lpath, err := exec.LookPath(task)
-	inspect(err)
-	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
-	return osCmd
-}
+// func capture(task string, args ...string) []byte {
+// 	lpath, err := exec.LookPath(task)
+// 	inspect(err)
+// 	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
+// 	return osCmd
+// }
 
 // Check for errors, print the result if found
 func inspect(err error) {
@@ -100,15 +140,15 @@ func inspect(err error) {
 }
 
 // Test for the minimum number of arguments
-func verify() string {
-	var f string
-	if inputs < 2 {
-		f = "--zero"
-	} else {
-		f = passed[1]
-	}
-	return f
-}
+// func verify() string {
+// 	var f string
+// 	if inputs < 2 {
+// 		f = "--zero"
+// 	} else {
+// 		f = passed[1]
+// 	}
+// 	return f
+// }
 
 // Check to see if the current release branch already exists locally
 func exists(prefix, tag string) bool {
@@ -130,47 +170,13 @@ func edge() bool {
 }
 
 // WIP - Dynamically update the require field in the composer.json file
-func monitor() {
-	// grep := capture("grep Version readme.txt | grep " + number[1] + " readme.txt | grep higher")
-	grep := capture("grep", "newer", "readme.txt")
-	// fmt.Println(bytes.IndexRune(grep, '*'))
-	requires := strings.Split(string(grep), " ")
-	evtp.Require.EventsCalendar = `>` + strings.Trim(requires[4], "\n")
-}
-
-// Decide whether an update or release branch is needed, and make it so
-func checkout(prefix string) {
-	suffix := ""
-	if flag == "-r" {
-		suffix = release
-	} else {
-		suffix = ticket
-	}
-
-	if exists(prefix, suffix) {
-		execute("git", "switch", prefix+suffix)
-	} else {
-		execute("git", "checkout", "-b", prefix+suffix)
-	}
-}
-
-// Add and commit the update
-func commit() {
-	execute("git", "add", ".")
-	execute("git", "commit", "-m", plugin+" (DESSO-"+ticket+")")
-}
-
-// Push modified content to the git repository
-func push() {
-	switch flag {
-	case "-r":
-		execute("git", "push", "--set-upstream", "origin", relbranch+release)
-	case "-s":
-		execute("git", "push", "--set-upstream", "origin", upbranch+ticket)
-	default:
-		execute("git", "push")
-	}
-}
+// func monitor() {
+// grep := capture("grep Version readme.txt | grep " + number[1] + " readme.txt | grep higher")
+// grep := capture("grep", "newer", "readme.txt")
+// fmt.Println(bytes.IndexRune(grep, '*'))
+// requires := strings.Split(string(grep), " ")
+// evtp.Require.EventsCalendar = `>` + strings.Trim(requires[4], "\n")
+// }
 
 // Print a colourized error message
 func alert(message string) {
