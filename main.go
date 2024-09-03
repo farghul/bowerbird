@@ -2,34 +2,33 @@ package main
 
 // Launch the program and execute the appropriate code
 func main() {
-	switch route {
-	case "-v", "--version":
-		version()
-	case "-h", "--help":
-		about()
-	case "-r", "--release":
-		flag = "-r"
-		changedir()
-		prepare()
-		released()
-	default:
-		driver()
-		free = compiler("wpackagist")
-		paid = compiler("premium")
-		dev = compiler("bcgov")
+	if len(route) > 1 {
+		switch route[1] {
+		case "-h", "--help":
+			help()
+		case "-u", "--update":
+			driver()
+			free = compiler(access.Free)
+			paid = compiler(access.Paid)
+			dev = compiler(access.Dev)
 
-		if len(free) > 0 {
-			flag = "-p"
-			changedir()
-			prepare()
-			wpackagist()
-		}
-		if len(paid) > 0 {
-			flag = "-s"
-			premium()
-		}
-		if len(dev) > 0 {
-			flag = "-d"
+			if len(free) > 0 {
+				flag = "-p"
+				rightplace()
+				prepare()
+				wpackagist()
+			}
+			if len(paid) > 0 {
+				flag = "-s"
+			}
+			if len(dev) > 0 {
+				flag = "-d"
+			}
+		case "-v", "--version":
+			version()
+		default:
+			alert("Unknown flag detected -")
+			help()
 		}
 	}
 }

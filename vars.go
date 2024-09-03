@@ -1,37 +1,28 @@
 package main
 
-import (
-	"bufio"
-	"os"
-)
-
 const (
 	reset     string = "\033[0m"
 	green     string = "\033[32m"
 	yellow    string = "\033[33m"
-	red       string = "\033[41m"
+	bgred     string = "\033[41m"
+	bgyellow  string = "\033[43m"
 	bv        string = "2.0"
 	relbranch string = "release/"
+	bitbucket string = "/BitBucket/"
 	upbranch  string = "update/DESSO-"
 	halt      string = "program halted "
 	zero      string = "Not enough arguments supplied -"
-	bitbucket string = "/BitBucket/"
 )
 
 var (
-	ecp     ECP
-	evtp    EVTP
-	satis   Satis
-	desso   Ticket
-	jira    Atlassian
-	flag    string
-	release string
-	plugin  string
-	ticket  string
-	route   = os.Args[1]
-	hmdr, _ = os.UserHomeDir()
-	inputs  = len(desso.Issues)
-	reader  = bufio.NewReader(os.Stdin)
+	ecp    ECP
+	evtp   EVTP
+	satis  Satis
+	jira   Ticket
+	access Atlassian
+	flag   string
+	plugin string
+	ticket string
 	// Declare string slices
 	number, folder, free, paid, dev []string
 )
@@ -66,16 +57,15 @@ type EVTP struct {
 
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
-	Team    string `json:"team"`
-	Base    string `json:"base"`
-	Path    string `json:"path"`
-	Token   string `json:"token"`
-	Issue   string `json:"issue"`
-	Split   string `json:"split"`
-	Search  string `json:"search"`
-	Project string `json:"project"`
+	Dev    string `json:"dev"`
+	Free   string `json:"free"`
+	Paid   string `json:"paid"`
+	Base   string `json:"base"`
+	Token  string `json:"token"`
+	Search string `json:"search"`
 }
 
+// Ticket holds the extracted data from the JQL queries
 type Ticket struct {
 	Issues []struct {
 		ID     string `json:"id"`

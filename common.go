@@ -10,48 +10,39 @@ import (
 	"strings"
 )
 
+var (
+	route   = os.Args
+	hmdr, _ = os.UserHomeDir()
+)
+
 func driver() {
 	data, err := os.ReadFile("secrets/jira.json")
 	inspect(err)
-	json.Unmarshal(data, &jira)
+	json.Unmarshal(data, &access)
 
-	search := api(jira.Search)
-	json.Unmarshal(search, &desso)
+	search := api(access.Search)
+	json.Unmarshal(search, &jira)
 }
 
 func compiler(element string) []string {
 	var candidate []string
-	for i := 0; i < len(desso.Issues); i++ {
-		if strings.Contains(desso.Issues[i].Fields.Summary, element) {
-			candidate = append(candidate, desso.Issues[i].Fields.Summary)
-			candidate = append(candidate, desso.Issues[i].Key)
+	for i := 0; i < len(jira.Issues); i++ {
+		if strings.Contains(jira.Issues[i].Fields.Summary, element) {
+			candidate = append(candidate, jira.Issues[i].Fields.Summary)
+			candidate = append(candidate, jira.Issues[i].Key)
 		}
-		// if strings.Contains(desso.Issues[i].Fields.Summary, "wpackagist") {
-		// 	free = append(free, desso.Issues[i].Fields.Summary)
-		// 	free = append(free, desso.Issues[i].Key)
-		// }
-
-		// if strings.Contains(desso.Issues[i].Fields.Summary, "premium") {
-		// 	paid = append(paid, desso.Issues[i].Fields.Summary)
-		// 	paid = append(paid, desso.Issues[i].Key)
-		// }
-
-		// if strings.Contains(desso.Issues[i].Fields.Summary, "bcgov") {
-		// 	dev = append(dev, desso.Issues[i].Fields.Summary)
-		// 	dev = append(dev, desso.Issues[i].Key)
-		// }
 	}
 	return candidate
 }
 
-// Grab the ticket information from Jira in order to extract the DESSO-XXXX identifier
+// Search the Jira API
 func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", jira.Base+criteria, "--header", "Authorization: Basic "+jira.Token, "--header", "Accept: application/json")
+	result := execute("-c", "curl", "--request", "GET", "--url", access.Base+criteria, "--header", "Authorization: Basic "+access.Token, "--header", "Accept: application/json")
 	return result
 }
 
 // Confirm the current working directory is correct
-func changedir() {
+func rightplace() {
 	os.Chdir(hmdr + bitbucket + "blog_gov_bc_ca")
 	var filePath string = "composer-prod.json"
 
@@ -80,7 +71,7 @@ func document(name string, d []byte) {
 	inspect(os.WriteFile(name, d, 0644))
 }
 
-// Record a message to the log file
+// Enter a record to the log file
 func journal(message string) {
 	file, err := os.OpenFile("logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
@@ -107,30 +98,6 @@ func execute(variation, task string, args ...string) []byte {
 	return nil
 }
 
-// Get user input via screen prompt
-func solicit(prompt string) string {
-	fmt.Print(prompt)
-	response, _ := reader.ReadString('\n')
-	return strings.TrimSpace(response)
-}
-
-// Run standard terminal commands and display the output
-// func execute(task string, args ...string) {
-// 	osCmd := exec.Command(task, args...)
-// 	osCmd.Stdout = os.Stdout
-// 	osCmd.Stderr = os.Stderr
-// 	err := osCmd.Run()
-// 	inspect(err)
-// }
-
-// Run a terminal command, then capture and return the output as a byte
-// func capture(task string, args ...string) []byte {
-// 	lpath, err := exec.LookPath(task)
-// 	inspect(err)
-// 	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
-// 	return osCmd
-// }
-
 // Check for errors, print the result if found
 func inspect(err error) {
 	if err != nil {
@@ -138,17 +105,6 @@ func inspect(err error) {
 		return
 	}
 }
-
-// Test for the minimum number of arguments
-// func verify() string {
-// 	var f string
-// 	if inputs < 2 {
-// 		f = "--zero"
-// 	} else {
-// 		f = passed[1]
-// 	}
-// 	return f
-// }
 
 // Check to see if the current release branch already exists locally
 func exists(prefix, tag string) bool {
@@ -169,18 +125,10 @@ func edge() bool {
 	return found
 }
 
-// WIP - Dynamically update the require field in the composer.json file
-// func monitor() {
-// grep := capture("grep Version readme.txt | grep " + number[1] + " readme.txt | grep higher")
-// grep := capture("grep", "newer", "readme.txt")
-// fmt.Println(bytes.IndexRune(grep, '*'))
-// requires := strings.Split(string(grep), " ")
-// evtp.Require.EventsCalendar = `>` + strings.Trim(requires[4], "\n")
-// }
-
 // Print a colourized error message
 func alert(message string) {
-	fmt.Println(red, message, halt, reset)
+	fmt.Println("\n", bgred, message, halt, reset)
+	fmt.Println(bgyellow, "Use -h for more detailed help information ")
 	os.Exit(0)
 }
 
@@ -192,18 +140,18 @@ func tracking(message string) {
 
 // Print program version number
 func version() {
-	fmt.Println(yellow+"Bowerbird", green+bv, reset)
+	fmt.Println("\n", yellow+"Bowerbird", green+bv, reset)
 }
 
 // Print help information for using the program
-func about() {
+func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  [program] [flag] [vendor/plugin]:[version] [ticket#]")
 	fmt.Println(yellow, "\nOptions:")
 	fmt.Println(green, " -h, --help", reset, "		Help Information")
 	fmt.Println(green, " -v, --version", reset, "	Display Program Version")
 	fmt.Println(green, " -s, --subscription", reset, "	Subscription Plugin Update")
-	fmt.Println(green, " -r, --release", reset, "	Production Release Plugin Update")
+	fmt.Println(green, " -d, --developer", reset, "	Internal Developer Plugin Update")
 	fmt.Println(green, " -p, --packaged", reset, "	Satis & WPackagist Plugin Update")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println(green, "   bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821")

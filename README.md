@@ -1,6 +1,8 @@
 # Bowerbird
 
-Bowerbird is a WordPress plugin update install tool. It simplifies the process of pulling free updates from [WordPress Packagist](https://repo.packagist.org) or premium updates from a subscription, then pushing them to Git and adding version tags to a private repository like Satis, if needed. Named after a very industrious creature who excels at building.
+Bowerbird is a WordPress plugin update install tool. It queries the target Jira API to find 
+
+It simplifies the process of pulling free updates from [WordPress Packagist](https://wpackagist.org) or premium updates from a subscription, then pushing them to Git and adding version tags to a private repository, if needed. Named after a very industrious creature who excels at building.
 
 ![Bird](bowerbird.webp)
 
@@ -9,6 +11,19 @@ Bowerbird is a WordPress plugin update install tool. It simplifies the process o
 Login information to download the update package. -- ***premium content only*** --
 
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
+
+A `secrets/jira.json` file containing your API URL and Basic token to enable ticket creation:
+
+``` go
+{
+    "dev": "Internal Development search filter",
+    "free": "WordPress Packagist search filter",
+    "paid": "Subscription search filter",
+    "base": "Jira Issue base URL",
+    "search": "JQL search string to query the Jira API",
+    "token": "Email:Jira API Token combination with Base 64 Encoding"
+}
+```
 
 ## Build
 

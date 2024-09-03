@@ -36,6 +36,13 @@ func premium() {
 	}
 }
 
+// Split the supplied arguments and assign them to variables
+func assign(p, t string) {
+	plugin, ticket = p, t
+	number = strings.Split(plugin, ":")
+	folder = strings.Split(number[0], "/")
+}
+
 // Read the composer.json file and store the results in a structure
 func learn() {
 	current, _ := os.ReadFile("composer.json")
@@ -47,11 +54,13 @@ func learn() {
 	inspect(err)
 }
 
-// Split the supplied arguments and assign them to variables
-func assign(p, t string) {
-	plugin, ticket = p, t
-	number = strings.Split(plugin, ":")
-	folder = strings.Split(number[0], "/")
+// Create an update branch if necessary
+func checkout(prefix string) {
+	if exists(prefix, ticket) {
+		execute("-e", "git", "switch", prefix+ticket)
+	} else {
+		execute("-e", "git", "checkout", "-b", prefix+ticket)
+	}
 }
 
 // Run the update script on downloaded content
