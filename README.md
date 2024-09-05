@@ -10,15 +10,17 @@ Googles' [Go language](https://go.dev) installed to enable building executables 
 
 Login information to download update packages. -- ***premium content only*** --
 
-A `secrets/jira.json` file containing your API URL and Basic token to enable authorized querying:
+A `jsons/access.json` file containing your API URL and Basic token to enable authorized querying:
 
 ``` go
 {
     "dev": "Internal Development search keyword",
-    "free": "WordPress Packagist search keyword",
-    "paid": "Subscription search keyword",
+    "wpac": "WordPress Packagist search keyword",
+    "prem": "Premium Subscription search keyword",
+    "root": "Path to folder containing all Premium repositories",
+    "repo": "Path to main repository",
     "base": "Jira Issue base URL",
-    "search": "JQL search string to query the Jira API",
+    "testing": "JQL search string to query the Jira API",
     "token": "Email:Jira API Token combination with Base 64 Encoding"
 }
 ```
