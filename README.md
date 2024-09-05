@@ -1,29 +1,32 @@
 # Bowerbird
 
-Bowerbird is a WordPress plugin update install tool. It queries the target Jira API to find 
-
-It simplifies the process of pulling free updates from [WordPress Packagist](https://wpackagist.org) or premium updates from a subscription, then pushing them to Git and adding version tags to a private repository, if needed. Named after a very industrious creature who excels at building.
+Bowerbird is a WordPress plugin update install tool. It queries a Jira API to find and simplify the process of updating WordPress plugins, while still tracking them via Jira tickets. Meant for an environment where strict version control is needed. Named after a very industrious little creature who excels at building.
 
 ![Bird](bowerbird.webp)
 
 ## Prerequisites
 
-Login information to download the update package. -- ***premium content only*** --
-
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
 
-A `secrets/jira.json` file containing your API URL and Basic token to enable ticket creation:
+Login information to download update packages. -- ***premium content only*** --
+
+A `secrets/jira.json` file containing your API URL and Basic token to enable authorized querying:
 
 ``` go
 {
-    "dev": "Internal Development search filter",
-    "free": "WordPress Packagist search filter",
-    "paid": "Subscription search filter",
+    "dev": "Internal Development search keyword",
+    "free": "WordPress Packagist search keyword",
+    "paid": "Subscription search keyword",
     "base": "Jira Issue base URL",
     "search": "JQL search string to query the Jira API",
     "token": "Email:Jira API Token combination with Base 64 Encoding"
 }
 ```
+
+## Function
+
+Bowerbird searches the targeted Jira API for tickets marked as **"New"** (aka ToDo), and filtered with labels such as *wordpress-plugin*. It then gathers the qualifying candidates and runs a series of `composer require` commands on the ***composer.json*** file and pushes the updates to a designated test branch. Additional steps such as downloading update files and version tagging may be performed for premium or in-house content prior to the push.
+
 
 ## Build
 
@@ -46,32 +49,14 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 Ensure the folder containing your ***composer.json*** file is predefined as variable and run:
 
 ``` console
-[program] [flag] [vendor/plugin]:[version] [ticket#]
+[program] [flag]
 ```
 
-## Examples
-
-Currently there are three supported scenarios available, using flags to specify each.
-
-### Subscription (Purchased third party plugins):
+## Example
 
 ``` console
-bowerbird -s bcgov-plugin/events-virtual:1.13.4 795
+bowerbird -i
 ```
-
-### Packaged (Plugins currently available via WPackagist or Satis):
-
-``` console
-bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821
-```
-
-### Release (In-house Production ready content):
-
-``` console
-bowerbird -r bcgov-plugin/bcgov-inline-comments:1.9.0 820
-```
-
-Flags `-r` and `-p` can accept multiple updates, chain together as many as you like!
 
 ## License
 
