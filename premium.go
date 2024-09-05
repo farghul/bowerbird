@@ -8,7 +8,7 @@ import (
 
 // A sequential list of tasks run to complete the program
 func quarterback() {
-	checkout(upbranch)
+	checkout(branch)
 	tracking("Update Script")
 	script()
 	correct()
@@ -21,8 +21,8 @@ func quarterback() {
 
 // Premium directs the preliminary actions to determine if the program can continue
 func premium() {
-	assign(paid[0], paid[1])
-	os.Chdir(hmdr + bitbucket + folder[1])
+	assign(prem[0], prem[1])
+	os.Chdir(access.Root + folder[1])
 	learn()
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
 	if strings.Contains(folder[1], "event") {

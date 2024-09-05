@@ -10,18 +10,15 @@ import (
 	"strings"
 )
 
-var (
-	route   = os.Args
-	hmdr, _ = os.UserHomeDir()
-)
+var route = os.Args
 
 func driver() {
-	data, err := os.ReadFile("secrets/jira.json")
+	data, err := os.ReadFile("jsons/access.json")
 	inspect(err)
 	json.Unmarshal(data, &access)
 
-	search := api(access.Search)
-	json.Unmarshal(search, &jira)
+	// search := api(access.Testing)
+	json.Unmarshal(api(access.Testing), &jira)
 }
 
 func compiler(element string) []string {
@@ -43,7 +40,7 @@ func api(criteria string) []byte {
 
 // Confirm the current working directory is correct
 func rightplace() {
-	os.Chdir(hmdr + bitbucket + "blog_gov_bc_ca")
+	os.Chdir(access.Repo)
 	var filePath string = "composer-prod.json"
 
 	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
@@ -55,9 +52,9 @@ func rightplace() {
 func prepare() {
 	tracking("Preparing Branch")
 	var branch string
-	if flag == "-s" && folder[1] == "events-virtual" {
+	if flag == "-p" && folder[1] == "events-virtual" {
 		branch = "main"
-	} else if flag == "-s" {
+	} else if flag == "-p" {
 		branch = "master"
 	} else {
 		branch = "development"
@@ -146,15 +143,13 @@ func version() {
 // Print help information for using the program
 func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
-	fmt.Println("  [program] [flag] [vendor/plugin]:[version] [ticket#]")
+	fmt.Println("  [program] [flag]")
 	fmt.Println(yellow, "\nOptions:")
-	fmt.Println(green, " -h, --help", reset, "		Help Information")
-	fmt.Println(green, " -v, --version", reset, "	Display Program Version")
-	fmt.Println(green, " -s, --subscription", reset, "	Subscription Plugin Update")
-	fmt.Println(green, " -d, --developer", reset, "	Internal Developer Plugin Update")
-	fmt.Println(green, " -p, --packaged", reset, "	Satis & WPackagist Plugin Update")
+	fmt.Println(green, " -h, --help", reset, "     Help Information")
+	fmt.Println(green, " -i, --implement", reset, "Run the main program")
+	fmt.Println(green, " -v, --version", reset, "  Display Program Version")
 	fmt.Println(yellow, "\nExample:", reset)
-	fmt.Println(green, "   bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821")
+	fmt.Println(green, "   bowerbird -i")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
 	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")

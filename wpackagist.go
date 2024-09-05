@@ -5,7 +5,7 @@ func wpackagist() {
 	tracking("Composer Update")
 	execute("-e", "composer", "update", "--no-install")
 	tracking("Plugin Update")
-	sift(free)
+	sift(wpac)
 	tracking("Git Push")
 	push()
 }
@@ -26,10 +26,10 @@ func sift(box []string) {
 		i++
 		ticket = box[i]
 
-		if flag == "-p" {
+		if flag == "-w" {
 			require()
 			commit()
-		} else if flag == "-s" {
+		} else if flag == "-p" {
 			premium()
 		} else {
 			// Send the Dev ticket to READY
@@ -46,8 +46,8 @@ func commit() {
 // Push modified content to the git repository
 func push() {
 	switch flag {
-	case "-s":
-		execute("-e", "git", "push", "--set-upstream", "origin", upbranch+ticket)
+	case "-p":
+		execute("-e", "git", "push", "--set-upstream", "origin", branch+ticket)
 	default:
 		execute("-e", "git", "push")
 	}

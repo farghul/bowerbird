@@ -6,23 +6,23 @@ func main() {
 		switch route[1] {
 		case "-h", "--help":
 			help()
-		case "-u", "--update":
+		case "-i", "--implement":
 			driver()
-			free = compiler(access.Free)
-			paid = compiler(access.Paid)
+			wpac = compiler(access.Wpac)
+			prem = compiler(access.Prem)
 			dev = compiler(access.Dev)
 
-			if len(free) > 0 {
+			if len(dev) > 0 {
+				flag = "-d"
+			}
+			if len(prem) > 0 {
 				flag = "-p"
+			}
+			if len(wpac) > 0 {
+				flag = "-w"
 				rightplace()
 				prepare()
 				wpackagist()
-			}
-			if len(paid) > 0 {
-				flag = "-s"
-			}
-			if len(dev) > 0 {
-				flag = "-d"
 			}
 		case "-v", "--version":
 			version()
