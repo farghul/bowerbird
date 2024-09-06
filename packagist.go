@@ -1,13 +1,14 @@
 package main
 
 // A sequential list of tasks run to complete the program
-func wpackagist() {
-	tracking("Composer Update")
+func packagist() {
+	tracking("Updating Composer")
 	execute("-e", "composer", "update", "--no-install")
-	tracking("Plugin Update")
+	tracking("Installing updates & commiting changes")
 	sift(wpac)
+	tracking("Writing to log file")
 	journal(ticket + " " + plugin)
-	tracking("Git Push")
+	tracking("Pushing to repository")
 	push()
 }
 

@@ -14,13 +14,17 @@ import (
 // A sequential list of tasks run to complete the program
 func quarterback() {
 	prepare()
+	tracking("Creating new branch")
 	checkout(branch)
-	tracking("Update Script")
+	tracking("Running update script")
 	script()
 	correct()
+	tracking("Commiting changes")
 	commit()
 	tracking("Tagging to Satis")
 	tags()
+	tracking("Pushing to repository")
+	push()
 }
 
 // Premium directs the preliminary actions to determine if the program can continue

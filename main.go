@@ -24,7 +24,7 @@ func main() {
 				flag = "-w"
 				rightplace()
 				prepare()
-				wpackagist()
+				packagist()
 			}
 		case "-v", "--version":
 			version()
@@ -32,5 +32,7 @@ func main() {
 			alert("Unknown flag detected -")
 			help()
 		}
+	} else {
+		alert("No flag detected -")
 	}
 }

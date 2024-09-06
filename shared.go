@@ -57,7 +57,6 @@ func rightplace() {
 
 // Switch to the desired branch, and pull any changes
 func prepare() {
-	tracking("Preparing Branch")
 	var branch string
 	if flag == "-p" && folder[1] == "events-virtual" {
 		branch = "main"
