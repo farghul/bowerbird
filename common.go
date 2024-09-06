@@ -5,24 +5,36 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"net/http"
+	"net/http/cookiejar"
+	"net/url"
 	"os"
 	"os/exec"
 	"strings"
+
+	"golang.org/x/net/publicsuffix"
 )
 
 var route = os.Args
 
-func driver() {
-	data, err := os.ReadFile("jsons/access.json")
-	inspect(err)
-	json.Unmarshal(data, &access)
-
-	// search := api(access.Testing)
-	json.Unmarshal(api(access.Testing), &jira)
+// Read the JSON files and Unmarshal the data into the appropriate Go structure
+func serialize() {
+	for index, element := range jsons {
+		data, err := os.ReadFile(element)
+		inspect(err)
+		switch index {
+		case 0:
+			json.Unmarshal(data, &access)
+		case 1:
+			json.Unmarshal(data, &values)
+		}
+	}
 }
 
 func compiler(element string) []string {
+	json.Unmarshal(api(access.ToDo), &jira)
 	var candidate []string
+
 	for i := 0; i < len(jira.Issues); i++ {
 		if strings.Contains(jira.Issues[i].Fields.Summary, element) {
 			candidate = append(candidate, jira.Issues[i].Fields.Summary)
@@ -61,6 +73,21 @@ func prepare() {
 	}
 	execute("-e", "git", "switch", branch)
 	execute("-e", "git", "pull")
+}
+
+func login(username, password, download, filename, login string) {
+	options := cookiejar.Options{
+		PublicSuffixList: publicsuffix.List,
+	}
+	jar, err := cookiejar.New(&options)
+	inspect(err)
+	client := http.Client{Jar: jar}
+	client.PostForm(login, url.Values{
+		"password": {password},
+		"username": {username},
+	})
+
+	execute("-e", "curl", download, "-o", "~/Downloads/"+filename)
 }
 
 // Write a passed variable to a named file

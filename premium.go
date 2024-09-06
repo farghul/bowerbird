@@ -8,6 +8,7 @@ import (
 
 // A sequential list of tasks run to complete the program
 func quarterback() {
+	prepare()
 	checkout(branch)
 	tracking("Update Script")
 	script()
@@ -15,8 +16,6 @@ func quarterback() {
 	commit()
 	tracking("Tagging to Satis")
 	tags()
-	tracking("Git Push")
-	push()
 }
 
 // Premium directs the preliminary actions to determine if the program can continue
@@ -24,7 +23,15 @@ func premium() {
 	assign(prem[0], prem[1])
 	os.Chdir(access.Root + folder[1])
 	learn()
+
+	if folder[1] == "gravityforms" {
+		login(values.Credentials[0].Username, values.Credentials[0].Password, values.Downloads.Gravity, folder[1], values.Links.Gravity)
+	} else {
+		runthechains("values.Downloads." + folder[1])
+	}
+
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
+
 	if strings.Contains(folder[1], "event") {
 		if ecp.Name+":"+ecp.Version == plugin || evtp.Name+":"+evtp.Version == plugin {
 			quarterback()
@@ -85,4 +92,8 @@ func correct() {
 func tags() {
 	execute("-e", "git", "tag", "v"+satis.Version)
 	execute("-e", "git", "push", "origin", "--tags")
+}
+
+func runthechains(value string) {
+	execute("-e", "curl", value, "-o", "~/Downloads/"+folder[1])
 }

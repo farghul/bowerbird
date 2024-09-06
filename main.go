@@ -7,16 +7,18 @@ func main() {
 		case "-h", "--help":
 			help()
 		case "-i", "--implement":
-			driver()
-			wpac = compiler(access.Wpac)
+			serialize()
+			wpac = compiler(access.WPac)
 			prem = compiler(access.Prem)
 			dev = compiler(access.Dev)
 
 			if len(dev) > 0 {
 				flag = "-d"
+				// Prepare update for deployment
 			}
 			if len(prem) > 0 {
 				flag = "-p"
+				wpackagist()
 			}
 			if len(wpac) > 0 {
 				flag = "-w"

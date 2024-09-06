@@ -6,6 +6,7 @@ func wpackagist() {
 	execute("-e", "composer", "update", "--no-install")
 	tracking("Plugin Update")
 	sift(wpac)
+	journal(ticket + " " + plugin)
 	tracking("Git Push")
 	push()
 }

@@ -13,14 +13,19 @@ const (
 )
 
 var (
-	ecp    ECP
-	evtp   EVTP
-	satis  Satis
+	ecp   ECP
+	evtp  EVTP
+	satis Satis
+	// vendor Links
+	// creds  Login
 	jira   Ticket
 	access Atlassian
+	// update Download
+	values Composite
 	flag   string
 	plugin string
 	ticket string
+	jsons  = []string{"jsons/access.json", "jsons/composite.json"}
 	// Declare string slices
 	number, folder, wpac, prem, dev []string
 )
@@ -55,14 +60,58 @@ type EVTP struct {
 
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
-	Dev     string `json:"dev"`
-	Wpac    string `json:"wpac"`
-	Prem    string `json:"prem"`
-	Repo    string `json:"repo"`
-	Root    string `json:"root"`
-	Base    string `json:"base"`
-	Token   string `json:"token"`
-	Testing string `json:"testing"`
+	Dev   string `json:"dev"`
+	WPac  string `json:"wpac"`
+	Prem  string `json:"prem"`
+	Repo  string `json:"repo"`
+	Root  string `json:"root"`
+	Base  string `json:"base"`
+	Token string `json:"token"`
+	ToDo  string `json:"todo"`
+}
+
+type Links struct {
+	AllImport string `json:"allimport"`
+	Gravity   string `json:"gravity"`
+	PolyLang  string `json:"polylang"`
+	SeachWP   string `json:"searchwp"`
+}
+
+type Login struct {
+	Credentials []struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	} `json:"credentials"`
+}
+
+type Download struct {
+	AllImport string `json:"allimport"`
+	Gravity   string `json:"gravity"`
+	PolyLang  string `json:"polylang"`
+	SeachWP   string `json:"searchwp"`
+}
+
+type Composite struct {
+	Credentials []struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	} `json:"credentials"`
+	Downloads struct {
+		Polylang  string `json:"polylang-pro"`
+		AllExport string `json:"wp-all-export-pro"`
+		Gravity   string `json:"gravityforms"`
+		SearchWP  string `json:"searchwp"`
+		Calendar  string `json:"events-calendar-pro"`
+		Tickets   string `json:"event-tickets-plus"`
+		Virtual   string `json:"events-virtual"`
+		Uji       string `json:"uji-countdown-premium"`
+	} `json:"downloads"`
+	Links struct {
+		Polylang  string `json:"polylang-pro"`
+		Allimport string `json:"wp-all-export-pro"`
+		Gravity   string `json:"gravityforms"`
+		Searchwp  string `json:"searchwp"`
+	} `json:"links"`
 }
 
 // Ticket holds the extracted data from the JQL queries
