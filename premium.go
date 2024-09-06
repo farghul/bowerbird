@@ -2,58 +2,45 @@ package main
 
 import (
 	"encoding/json"
+	"net/http"
+	"net/http/cookiejar"
+	"net/url"
 	"os"
 	"strings"
+
+	"golang.org/x/net/publicsuffix"
 )
-
-// Satis structure captures the contents of the composer.json file for typical premium plugins
-type Satis struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-}
-
-// ECP structure captures the contents of the composer.json file for Events Calendar Pro
-type ECP struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-	Require struct {
-		EventsCalendar string `json:"wpackagist-plugin/the-events-calendar"`
-	} `json:"require"`
-}
-
-// EVTP structure captures the contents of the composer.json file for Events Tickets Plus
-type EVTP struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-	Require struct {
-		EventsCalendar string `json:"wpackagist-plugin/the-events-calendar"`
-		EventsTicket   string `json:"wpackagist-plugin/event-tickets"`
-	} `json:"require"`
-}
 
 // A sequential list of tasks run to complete the program
 func quarterback() {
 	prepare()
-	checkout(upbranch)
-	tracking("Update Script")
+	tracking("Creating new branch")
+	checkout(branch)
+	tracking("Running update script")
 	script()
 	correct()
+	tracking("Commiting changes")
 	commit()
 	tracking("Tagging to Satis")
 	tags()
-	tracking("Git Push")
+	tracking("Pushing to repository")
 	push()
 }
 
 // Premium directs the preliminary actions to determine if the program can continue
 func premium() {
-	assign(passed[2], passed[3])
-	os.Chdir(hmdr + bitbucket + folder[1])
+	assign(prem[0], prem[1])
+	os.Chdir(access.Root + folder[1])
 	learn()
+
+	if folder[1] == "gravityforms" {
+		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Links.Gravity)
+	} else {
+		directdownload("values.Downloads." + folder[1])
+	}
+
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
+
 	if strings.Contains(folder[1], "event") {
 		if ecp.Name+":"+ecp.Version == plugin || evtp.Name+":"+evtp.Version == plugin {
 			quarterback()
@@ -63,6 +50,13 @@ func premium() {
 	} else {
 		alert("Plugin name does not match composer.json entry - program halted")
 	}
+}
+
+// Split the supplied arguments and assign them to variables
+func assign(p, t string) {
+	plugin, ticket = p, t
+	number = strings.Split(plugin, ":")
+	folder = strings.Split(number[0], "/")
 }
 
 // Read the composer.json file and store the results in a structure
@@ -76,16 +70,38 @@ func learn() {
 	inspect(err)
 }
 
-// Split the supplied arguments and assign them to variables
-func assign(p, t string) {
-	plugin, ticket = p, t
-	number = strings.Split(plugin, ":")
-	folder = strings.Split(number[0], "/")
+func login(username, password, download, login string) {
+	options := cookiejar.Options{
+		PublicSuffixList: publicsuffix.List,
+	}
+	jar, err := cookiejar.New(&options)
+	inspect(err)
+	client := http.Client{Jar: jar}
+	client.PostForm(login, url.Values{
+		"password": {password},
+		"username": {username},
+	})
+
+	// execute("-e", "curl", download, "-o", "~/Downloads/"+filename)
+	directdownload(download)
+}
+
+func directdownload(value string) {
+	execute("-e", "curl", value, "-o", "~/Downloads/"+folder[1])
+}
+
+// Create an update branch if necessary
+func checkout(prefix string) {
+	if exists(prefix, ticket) {
+		execute("-e", "git", "switch", prefix+ticket)
+	} else {
+		execute("-e", "git", "checkout", "-b", prefix+ticket)
+	}
 }
 
 // Run the update script on downloaded content
 func script() {
-	execute("sh", "-c", "scripts/update.sh ~/Downloads/"+folder[1]+"/")
+	execute("-e", "sh", "-c", "scripts/update.sh ~/Downloads/"+folder[1]+"/")
 }
 
 // Convert the structure back into json and overwrite the composer.json file
@@ -103,6 +119,6 @@ func correct() {
 
 // Tag the version so Satis can package it
 func tags() {
-	execute("git", "tag", "v"+satis.Version)
-	execute("git", "push", "origin", "--tags")
+	execute("-e", "git", "tag", "v"+satis.Version)
+	execute("-e", "git", "push", "origin", "--tags")
 }
