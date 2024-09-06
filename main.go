@@ -14,11 +14,11 @@ func main() {
 
 			if len(dev) > 0 {
 				flag = "-d"
-				// Prepare update for deployment
+				sift(dev)
 			}
 			if len(prem) > 0 {
 				flag = "-p"
-				wpackagist()
+				sift(prem)
 			}
 			if len(wpac) > 0 {
 				flag = "-w"

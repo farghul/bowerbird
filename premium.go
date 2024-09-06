@@ -2,8 +2,13 @@ package main
 
 import (
 	"encoding/json"
+	"net/http"
+	"net/http/cookiejar"
+	"net/url"
 	"os"
 	"strings"
+
+	"golang.org/x/net/publicsuffix"
 )
 
 // A sequential list of tasks run to complete the program
@@ -25,9 +30,9 @@ func premium() {
 	learn()
 
 	if folder[1] == "gravityforms" {
-		login(values.Credentials[0].Username, values.Credentials[0].Password, values.Downloads.Gravity, folder[1], values.Links.Gravity)
+		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Links.Gravity)
 	} else {
-		runthechains("values.Downloads." + folder[1])
+		directdownload("values.Downloads." + folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -61,6 +66,26 @@ func learn() {
 	inspect(err)
 }
 
+func login(username, password, download, login string) {
+	options := cookiejar.Options{
+		PublicSuffixList: publicsuffix.List,
+	}
+	jar, err := cookiejar.New(&options)
+	inspect(err)
+	client := http.Client{Jar: jar}
+	client.PostForm(login, url.Values{
+		"password": {password},
+		"username": {username},
+	})
+
+	// execute("-e", "curl", download, "-o", "~/Downloads/"+filename)
+	directdownload(download)
+}
+
+func directdownload(value string) {
+	execute("-e", "curl", value, "-o", "~/Downloads/"+folder[1])
+}
+
 // Create an update branch if necessary
 func checkout(prefix string) {
 	if exists(prefix, ticket) {
@@ -92,8 +117,4 @@ func correct() {
 func tags() {
 	execute("-e", "git", "tag", "v"+satis.Version)
 	execute("-e", "git", "push", "origin", "--tags")
-}
-
-func runthechains(value string) {
-	execute("-e", "curl", value, "-o", "~/Downloads/"+folder[1])
 }

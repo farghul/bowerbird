@@ -5,14 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"net/http"
-	"net/http/cookiejar"
-	"net/url"
 	"os"
 	"os/exec"
 	"strings"
-
-	"golang.org/x/net/publicsuffix"
 )
 
 var route = os.Args
@@ -73,21 +68,6 @@ func prepare() {
 	}
 	execute("-e", "git", "switch", branch)
 	execute("-e", "git", "pull")
-}
-
-func login(username, password, download, filename, login string) {
-	options := cookiejar.Options{
-		PublicSuffixList: publicsuffix.List,
-	}
-	jar, err := cookiejar.New(&options)
-	inspect(err)
-	client := http.Client{Jar: jar}
-	client.PostForm(login, url.Values{
-		"password": {password},
-		"username": {username},
-	})
-
-	execute("-e", "curl", download, "-o", "~/Downloads/"+filename)
 }
 
 // Write a passed variable to a named file
