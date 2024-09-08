@@ -13,21 +13,18 @@ const (
 )
 
 var (
-	ecp   ECP
-	evtp  EVTP
-	satis Satis
-	// vendor Links
-	// creds  Login
-	jira   Ticket
-	access Atlassian
-	// update Download
-	values Composite
+	ecp    ECP
+	evtp   EVTP
+	satis  Satis
+	jira   Pack
 	flag   string
 	plugin string
 	ticket string
-	jsons  = []string{"jsons/access.json", "jsons/composite.json"}
+	values Bundle
+	access Atlassian
+	jsons  = []string{"jsons/access.json", "jsons/bundle.json"}
 	// Declare string slices
-	number, folder, wpac, prem, dev []string
+	folder, number, dev, prem, wpac []string
 )
 
 // Satis structure captures the contents of the composer.json file for typical premium plugins
@@ -60,14 +57,16 @@ type EVTP struct {
 
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
-	Dev   string `json:"dev"`
-	WPac  string `json:"wpac"`
-	Prem  string `json:"prem"`
-	Repo  string `json:"repo"`
-	Root  string `json:"root"`
-	Base  string `json:"base"`
-	Token string `json:"token"`
-	ToDo  string `json:"todo"`
+	Dev     string `json:"dev"`
+	Path    string `json:"path"`
+	WPac    string `json:"wpac"`
+	Prem    string `json:"prem"`
+	Repo    string `json:"repo"`
+	Root    string `json:"root"`
+	Prod    string `json:"prod"` // jira API production environment
+	Token   string `json:"token"`
+	ToDo    string `json:"todo"`
+	Sandbox string `json:"sandbox"` // jira API test environment
 }
 
 type Links struct {
@@ -91,7 +90,7 @@ type Download struct {
 	SeachWP   string `json:"searchwp"`
 }
 
-type Composite struct {
+type Bundle struct {
 	Credentials []struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
@@ -115,7 +114,7 @@ type Composite struct {
 }
 
 // Ticket holds the extracted data from the JQL queries
-type Ticket struct {
+type Pack struct {
 	Issues []struct {
 		ID     string `json:"id"`
 		Key    string `json:"key"`
@@ -123,6 +122,7 @@ type Ticket struct {
 			Status struct {
 				Self           string `json:"self"`
 				Description    string `json:"description"`
+				IconURL        string `json:"iconUrl"`
 				Name           string `json:"name"`
 				ID             string `json:"id"`
 				StatusCategory struct {
@@ -133,10 +133,7 @@ type Ticket struct {
 					Name      string `json:"name"`
 				} `json:"statusCategory"`
 			} `json:"status"`
-			Updated     string        `json:"updated"`
-			Summary     string        `json:"summary"`
-			FixVersions []interface{} `json:"fixVersions"`
-			Created     string        `json:"created"`
+			Summary string `json:"summary"`
 		} `json:"fields"`
 	} `json:"issues"`
 }

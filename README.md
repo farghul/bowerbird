@@ -19,7 +19,7 @@ A `jsons/access.json` file containing your API URL and Basic token to enable aut
     "prem": "Premium Subscription search keyword",
     "root": "Path to folder containing all Premium repositories",
     "repo": "Path to main repository",
-    "base": "Jira Issue base URL",
+    "prod": "Jira Issue base URL",
     "testing": "JQL search string to query the Jira API",
     "token": "Email:Jira API Token combination with Base 64 Encoding"
 }

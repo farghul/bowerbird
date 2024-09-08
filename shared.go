@@ -41,7 +41,7 @@ func compiler(element string) []string {
 
 // Search the Jira API
 func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", access.Base+criteria, "--header", "Authorization: Basic "+access.Token, "--header", "Accept: application/json")
+	result := execute("-c", "curl", "--request", "GET", "--url", access.Prod+criteria, "--header", "Authorization: Basic "+access.Token, "--header", "Accept: application/json")
 	return result
 }
 
@@ -76,7 +76,7 @@ func document(name string, d []byte) {
 
 // Enter a record to the log file
 func journal(message string) {
-	file, err := os.OpenFile("logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(access.Path+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)
