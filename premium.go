@@ -36,7 +36,7 @@ func premium() {
 	if folder[1] == "gravityforms" {
 		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Links.Gravity)
 	} else {
-		directdownload("values.Downloads." + folder[1])
+		execute("-e", "curl", "values.Downloads"+folder[1], "-o", "~/Downloads/"+folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -82,12 +82,7 @@ func login(username, password, download, login string) {
 		"username": {username},
 	})
 
-	// execute("-e", "curl", download, "-o", "~/Downloads/"+filename)
-	directdownload(download)
-}
-
-func directdownload(value string) {
-	execute("-e", "curl", value, "-o", "~/Downloads/"+folder[1])
+	execute("-e", "curl", download, "-o", "~/Downloads/"+folder[1])
 }
 
 // Create an update branch if necessary

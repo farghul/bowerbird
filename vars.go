@@ -69,27 +69,6 @@ type Atlassian struct {
 	Sandbox string `json:"sandbox"` // jira API test environment
 }
 
-type Links struct {
-	AllImport string `json:"allimport"`
-	Gravity   string `json:"gravity"`
-	PolyLang  string `json:"polylang"`
-	SeachWP   string `json:"searchwp"`
-}
-
-type Login struct {
-	Credentials []struct {
-		Username string `json:"username"`
-		Password string `json:"password"`
-	} `json:"credentials"`
-}
-
-type Download struct {
-	AllImport string `json:"allimport"`
-	Gravity   string `json:"gravity"`
-	PolyLang  string `json:"polylang"`
-	SeachWP   string `json:"searchwp"`
-}
-
 type Bundle struct {
 	Credentials []struct {
 		Username string `json:"username"`
