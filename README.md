@@ -12,7 +12,7 @@ Login information to download update packages. -- ***premium content only*** --
 
 A `jsons/access.json` file containing your API URL and Basic token to enable authorized querying:
 
-``` go
+``` json
 {
     "dev": "Internal Development search keyword",
     "wpac": "WordPress Packagist search keyword",
@@ -54,10 +54,20 @@ Ensure the folder containing your ***composer.json*** file is predefined as vari
 [program] [flag]
 ```
 
+## Options
+
+``` console
+-h, --help        Help Information
+-d, --developer   Install internal developer updates
+-p, --premium     Install paid subscription updates
+-v, --version     Display Program Version
+-w, --wpackagist  Install free wpackagist updates
+```
+
 ## Example
 
 ``` console
-bowerbird -i
+bowerbird -w
 ```
 
 ## License
