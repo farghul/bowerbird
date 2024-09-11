@@ -1,15 +1,15 @@
 package main
 
 // A sequential list of tasks run to complete the program
-func packagist() {
+func packagist(flavour []string) {
 	tracking("Updating Composer")
 	execute("-e", "composer", "update", "--no-install")
 	tracking("Installing updates & commiting changes")
-	sift(wpac)
+	sift(flavour)
 	tracking("Writing to log file")
 	journal(ticket + " " + plugin)
 	tracking("Pushing to repository")
-	push()
+	// push()
 }
 
 // Run the appropriate composer require command based on the flag value

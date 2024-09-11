@@ -6,6 +6,17 @@ func main() {
 		switch route[1] {
 		case "-h", "--help":
 			help()
+		case "-c", "--core":
+			serialize()
+			core = compiler(access.Core)
+			if len(core) > 0 {
+				flag = "-w"
+				rightplace()
+				prepare()
+				packagist(core)
+			} else {
+				journal("Checked for WordPress core updates, none found.")
+			}
 		case "-d", "--developer":
 			serialize()
 			dev = compiler(access.Dev)
@@ -31,7 +42,7 @@ func main() {
 				flag = "-w"
 				rightplace()
 				prepare()
-				packagist()
+				packagist(wpac)
 			} else {
 				journal("Checked for WPackagist plugin updates, none found.")
 			}

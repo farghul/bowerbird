@@ -10,7 +10,10 @@ import (
 	"strings"
 )
 
-var route = os.Args
+var (
+	route   = os.Args
+	hmdr, _ = os.UserHomeDir()
+)
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
@@ -41,7 +44,7 @@ func compiler(element string) []string {
 
 // Search the Jira API
 func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", access.Prod+criteria, "--header", "Authorization: Basic "+access.Token, "--header", "Accept: application/json")
+	result := execute("-c", "curl", "--request", "GET", "--url", access.Cloud+criteria, "--header", "Authorization: Basic "+access.Token, "--header", "Accept: application/json")
 	return result
 }
 
@@ -76,7 +79,7 @@ func document(name string, d []byte) {
 
 // Enter a record to the log file
 func journal(message string) {
-	file, err := os.OpenFile(access.Path+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(hmdr+"/Shared/logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)
@@ -151,8 +154,9 @@ func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  [program] [flag]")
 	fmt.Println(yellow, "\nOptions:")
-	fmt.Println(green, " -h, --help", reset, "      Help Information")
+	fmt.Println(green, " -c, --core", reset, "      Install WordPress core updates")
 	fmt.Println(green, " -d, --developer", reset, " Install internal developer updates")
+	fmt.Println(green, " -h, --help", reset, "      Help Information")
 	fmt.Println(green, " -p, --premium", reset, "   Install paid subscription updates")
 	fmt.Println(green, " -v, --version", reset, "   Display Program Version")
 	fmt.Println(green, " -w, --wpackagist", reset, "Install free wpackagist updates")

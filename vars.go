@@ -22,9 +22,9 @@ var (
 	ticket string
 	values Bundle
 	access Atlassian
-	jsons  = []string{"jsons/access.json", "jsons/bundle.json"}
+	jsons  = []string{hmdr + "/Shared/jsons/env.json", hmdr + "/Shared/jsons/bundle.json"}
 	// Declare string slices
-	folder, number, dev, prem, wpac []string
+	folder, number, dev, prem, wpac, core []string
 )
 
 // Satis structure captures the contents of the composer.json file for typical premium plugins
@@ -58,14 +58,14 @@ type EVTP struct {
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
 	Dev     string `json:"dev"`
-	Path    string `json:"path"`
+	Core    string `json:"core"`
 	WPac    string `json:"wpac"`
 	Prem    string `json:"prem"`
 	Repo    string `json:"repo"`
 	Root    string `json:"root"`
-	Prod    string `json:"prod"` // jira API production environment
-	Token   string `json:"token"`
 	ToDo    string `json:"todo"`
+	Token   string `json:"token"`
+	Cloud   string `json:"cloud"`   // jira API production environment
 	Sandbox string `json:"sandbox"` // jira API test environment
 }
 
