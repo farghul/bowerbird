@@ -32,7 +32,7 @@ Bowerbird searches the targeted Jira API for tickets marked as **"New"** (aka To
 
 ## Build
 
-From the root folder containing the `go` files, use the command that matches your environment:
+From the root folder containing `main.go`, use the command that matches your environment:
 
 ### Windows & Mac:
 

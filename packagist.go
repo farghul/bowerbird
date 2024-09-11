@@ -42,7 +42,7 @@ func sift(box []string) {
 // Add and commit the update
 func commit() {
 	execute("-e", "git", "add", ".")
-	execute("-e", "git", "commit", "-m", ticket+" "+plugin)
+	execute("-e", "git", "commit", "-m", ticket+" install "+plugin)
 }
 
 // Push modified content to the git repository
