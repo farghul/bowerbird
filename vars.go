@@ -69,6 +69,7 @@ type Atlassian struct {
 	Sandbox string `json:"sandbox"` // jira API test environment
 }
 
+// Bundle holds the information necessary to login and download premium plugin updates
 type Bundle struct {
 	Credentials []struct {
 		Username string `json:"username"`
