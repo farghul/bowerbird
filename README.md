@@ -25,6 +25,8 @@ A `env.json` file containing your API URL and Basic token to enable authorized q
 }
 ```
 
+A `bundle.json` file containing everything needed to aquire the Premium plugin update files (see `jsons` folder for reference)
+
 ## Function
 
 Bowerbird searches the targeted Jira API for tickets marked as **"New"** (aka ToDo), and filtered with labels such as *wordpress-plugin*. It then gathers the qualifying candidates and runs a series of `composer require` commands on the ***composer.json*** file and pushes the updates to a designated test branch. Additional steps such as downloading update files and version tagging may be performed for premium or in-house content prior to the push.
