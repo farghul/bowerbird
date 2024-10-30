@@ -13,7 +13,6 @@
 
 # Dependency directories
 bin/
-jsons/
 logs/
 secrets/
 test/

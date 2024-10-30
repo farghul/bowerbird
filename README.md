@@ -19,7 +19,7 @@ A `env.json` file containing your API URL and Basic token to enable authorized q
     "prem": "Premium Subscription search keyword",
     "root": "Path to folder containing all Premium repositories",
     "repo": "Path to main repository",
-    "cloud": "Jira Issue base URL",
+    "cloud": "Jira Issue base URL, ex. https://<domain>/rest/api/latest/",
     "testing": "JQL search string to query the Jira API",
     "token": "Email:Jira API Token combination with Base 64 Encoding"
 }
