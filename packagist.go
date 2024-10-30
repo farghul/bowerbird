@@ -9,7 +9,7 @@ func packagist(flavour []string) {
 	tracking("Writing to log file")
 	journal(ticket + " " + plugin)
 	tracking("Pushing to repository")
-	// push()
+	push()
 }
 
 // Run the appropriate composer require command based on the flag value
