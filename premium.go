@@ -36,7 +36,7 @@ func premium() {
 	if folder[1] == "gravityforms" {
 		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Links.Gravity)
 	} else {
-		execute("-e", "curl", "values.Downloads"+folder[1], "-o", "~/Downloads/"+folder[1])
+		execute("-e", "curl", "values.Downloads"+folder[1], "-o", hmdr+"/automation/premium/"+folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -82,7 +82,7 @@ func login(username, password, download, login string) {
 		"username": {username},
 	})
 
-	execute("-e", "curl", download, "-o", "~/Downloads/"+folder[1])
+	execute("-e", "curl", download, "-o", hmdr+"/automation/premium/"+folder[1])
 }
 
 // Create an update branch if necessary
@@ -96,7 +96,7 @@ func checkout(prefix string) {
 
 // Run the update script on downloaded content
 func script() {
-	execute("-e", "sh", "-c", "scripts/update.sh ~/Downloads/"+folder[1]+"/")
+	execute("-e", "sh", "-c", "scripts/update.sh ~/automation/premium/"+folder[1]+"/")
 }
 
 // Convert the structure back into json and overwrite the composer.json file

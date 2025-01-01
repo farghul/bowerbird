@@ -22,7 +22,7 @@ var (
 	ticket string
 	values Bundle
 	access Atlassian
-	jsons  = []string{hmdr + "/jsons/env.json", hmdr + "/jsons/bundle.json"}
+	jsons  = []string{hmdr + "/automation/jsons/env.json", hmdr + "/automation/jsons/bundle.json"}
 	// Declare string slices
 	folder, number, dev, prem, wpac, core []string
 )
