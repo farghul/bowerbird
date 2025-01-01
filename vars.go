@@ -57,16 +57,15 @@ type EVTP struct {
 
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
-	Dev     string `json:"dev"`
-	Core    string `json:"core"`
-	WPac    string `json:"wpac"`
-	Prem    string `json:"prem"`
-	Repo    string `json:"repo"`
-	Root    string `json:"root"`
-	ToDo    string `json:"todo"`
-	Token   string `json:"token"`
-	Cloud   string `json:"cloud"`   // jira API production environment
-	Sandbox string `json:"sandbox"` // jira API test environment
+	Dev   string `json:"dev"`
+	Core  string `json:"core"`
+	WPac  string `json:"wpac"`
+	Prem  string `json:"prem"`
+	Repo  string `json:"repo"`
+	Root  string `json:"root"`
+	ToDo  string `json:"todo"`
+	Token string `json:"token"`
+	Cloud string `json:"cloud"` // jira API production environment
 }
 
 // Bundle holds the information necessary to login and download premium plugin updates
