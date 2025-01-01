@@ -10,22 +10,7 @@ Googles' [Go language](https://go.dev) installed to enable building executables 
 
 Login information to download update packages. -- ***premium content only*** --
 
-An `env.json` file containing your API URL and Basic token to enable authorized querying:
-
-``` json
-{
-    "dev": "Internal Development search keyword",
-    "wpac": "WordPress Packagist search keyword",
-    "prem": "Premium Subscription search keyword",
-    "root": "Path to folder containing all Premium repositories",
-    "repo": "Path to main repository",
-    "cloud": "Jira Issue base URL, ex. https://<domain>/rest/api/latest/",
-    "testing": "JQL search string to query the Jira API",
-    "token": "Email:Jira API Token combination with Base 64 Encoding"
-}
-```
-
-A `bundle.json` file containing everything needed to aquire the Premium plugin update files (see `jsons` folder for reference)
+An `env.json` file containing your API URL and Basic token to enable authorized querying, and a `bundle.json` file containing everything needed to aquire the Premium plugin update files (see `jsons` folder for reference)
 
 ## Function
 
@@ -61,9 +46,9 @@ Ensure the folder containing your ***composer.json*** file is predefined as vari
 ``` console
 -c, --core        Install WordPress core updates
 -d, --developer   Install internal developer updates
--h, --help        Help Information
+-h, --help        Help information
 -p, --premium     Install paid subscription updates
--v, --version     Display Program Version
+-v, --version     Display program version
 -w, --wpackagist  Install free wpackagist updates
 ```
 
