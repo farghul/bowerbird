@@ -101,7 +101,7 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	zero     string = "Not enough arguments supplied -"
-	assets   string = "/data/scripts/jira-automation/programs/"
+	assets   string = "/data/scripts/automation/programs/"
 )
 
 var (
