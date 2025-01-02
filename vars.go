@@ -101,6 +101,7 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	zero     string = "Not enough arguments supplied -"
+	assets   string = "/data/scripts/jira-automation/programs/"
 )
 
 var (
@@ -113,7 +114,7 @@ var (
 	ticket string
 	values Bundle
 	access Atlassian
-	jsons  = []string{access.Programs + "jsons/env.json", access.Programs + "jsons/bundle.json"}
+	jsons  = []string{assets + "jsons/env.json", assets + "jsons/bundle.json"}
 	// Declare string slices
 	folder, number, dev, prem, wpac, core []string
 )
