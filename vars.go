@@ -1,32 +1,5 @@
 package main
 
-const (
-	bv       string = "2.0"
-	branch   string = "update/"
-	reset    string = "\033[0m"
-	green    string = "\033[32m"
-	yellow   string = "\033[33m"
-	bgred    string = "\033[41m"
-	bgyellow string = "\033[43m"
-	halt     string = "program halted "
-	zero     string = "Not enough arguments supplied -"
-)
-
-var (
-	ecp    ECP
-	evtp   EVTP
-	satis  Satis
-	jira   Pack
-	flag   string
-	plugin string
-	ticket string
-	values Bundle
-	access Atlassian
-	jsons  = []string{access.Programs + "jsons/env.json", access.Programs + "jsons/bundle.json"}
-	// Declare string slices
-	folder, number, dev, prem, wpac, core []string
-)
-
 // Satis structure captures the contents of the composer.json file for typical premium plugins
 type Satis struct {
 	Name    string `json:"name"`
@@ -93,7 +66,7 @@ type Bundle struct {
 	} `json:"links"`
 }
 
-// Ticket holds the extracted data from the JQL queries
+// Pack holds the extracted data from the JQL queries
 type Pack struct {
 	Issues []struct {
 		ID     string `json:"id"`
@@ -117,3 +90,30 @@ type Pack struct {
 		} `json:"fields"`
 	} `json:"issues"`
 }
+
+const (
+	bv       string = "2.0"
+	branch   string = "update/"
+	reset    string = "\033[0m"
+	green    string = "\033[32m"
+	yellow   string = "\033[33m"
+	bgred    string = "\033[41m"
+	bgyellow string = "\033[43m"
+	halt     string = "program halted "
+	zero     string = "Not enough arguments supplied -"
+)
+
+var (
+	ecp    ECP
+	evtp   EVTP
+	satis  Satis
+	jira   Pack
+	flag   string
+	plugin string
+	ticket string
+	values Bundle
+	access Atlassian
+	jsons  = []string{access.Programs + "jsons/env.json", access.Programs + "jsons/bundle.json"}
+	// Declare string slices
+	folder, number, dev, prem, wpac, core []string
+)
