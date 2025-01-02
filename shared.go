@@ -11,8 +11,7 @@ import (
 )
 
 var (
-	route   = os.Args
-	hmdr, _ = os.UserHomeDir()
+	route = os.Args
 )
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
@@ -50,7 +49,7 @@ func api(criteria string) []byte {
 
 // Confirm the current working directory is correct
 func rightplace() {
-	os.Chdir(access.Repo)
+	os.Chdir(access.WordPress)
 	var filePath string = "composer-prod.json"
 
 	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
@@ -79,7 +78,7 @@ func document(name string, d []byte) {
 
 // Enter a record to the log file
 func journal(message string) {
-	file, err := os.OpenFile(hmdr+"/automation/logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(access.Programs+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)

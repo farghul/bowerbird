@@ -22,7 +22,7 @@ var (
 	ticket string
 	values Bundle
 	access Atlassian
-	jsons  = []string{hmdr + "/automation/jsons/env.json", hmdr + "/automation/jsons/bundle.json"}
+	jsons  = []string{access.Programs + "jsons/env.json", access.Programs + "jsons/bundle.json"}
 	// Declare string slices
 	folder, number, dev, prem, wpac, core []string
 )
@@ -57,15 +57,16 @@ type EVTP struct {
 
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
-	Dev   string `json:"dev"`
-	Core  string `json:"core"`
-	WPac  string `json:"wpac"`
-	Prem  string `json:"prem"`
-	Repo  string `json:"repo"`
-	Root  string `json:"root"`
-	ToDo  string `json:"todo"`
-	Token string `json:"token"`
-	Cloud string `json:"cloud"` // jira API production environment
+	Dev       string `json:"dev"`
+	Core      string `json:"core"`
+	WPac      string `json:"wpac"`
+	Prem      string `json:"prem"`
+	ToDo      string `json:"todo"`
+	Token     string `json:"token"`
+	Repos     string `json:"repos"`
+	Cloud     string `json:"cloud"` // jira API production environment
+	Programs  string `json:"programs"`
+	WordPress string `json:"wordpress"`
 }
 
 // Bundle holds the information necessary to login and download premium plugin updates

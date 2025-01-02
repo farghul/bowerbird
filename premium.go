@@ -30,13 +30,13 @@ func quarterback() {
 // Premium directs the preliminary actions to determine if the program can continue
 func premium() {
 	assign(prem[0], prem[1])
-	os.Chdir(access.Root + folder[1])
+	os.Chdir(access.Repos + folder[1])
 	learn()
 
 	if folder[1] == "gravityforms" {
 		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Links.Gravity)
 	} else {
-		execute("-e", "curl", "values.Downloads"+folder[1], "-o", hmdr+"/automation/premium/"+folder[1])
+		execute("-e", "curl", "values.Downloads"+folder[1], "-o", access.Programs+"premium/"+folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -82,7 +82,7 @@ func login(username, password, download, login string) {
 		"username": {username},
 	})
 
-	execute("-e", "curl", download, "-o", hmdr+"/automation/premium/"+folder[1])
+	execute("-e", "curl", download, "-o", access.Programs+"premium/"+folder[1])
 }
 
 // Create an update branch if necessary
