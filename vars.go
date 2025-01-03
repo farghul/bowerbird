@@ -58,12 +58,12 @@ type Bundle struct {
 		Virtual   string `json:"events-virtual"`
 		Uji       string `json:"uji-countdown-premium"`
 	} `json:"downloads"`
-	Links struct {
+	Logins struct {
 		Polylang  string `json:"polylang-pro"`
 		Allimport string `json:"wp-all-export-pro"`
 		Gravity   string `json:"gravityforms"`
 		Searchwp  string `json:"searchwp"`
-	} `json:"links"`
+	} `json:"logins"`
 }
 
 // Pack holds the extracted data from the JQL queries

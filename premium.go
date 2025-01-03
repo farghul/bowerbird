@@ -33,10 +33,23 @@ func premium() {
 	os.Chdir(access.Repos + folder[1])
 	learn()
 
-	if folder[1] == "gravityforms" {
-		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Links.Gravity)
-	} else {
-		execute("-e", "curl", "values.Downloads"+folder[1], "-o", access.Programs+"premium/"+folder[1])
+	switch folder[1] {
+	case "events-calendar-pro":
+		execute("-e", "curl", values.Downloads.Calendar, "-o", access.Programs+"premium/"+folder[1])
+	case "event-tickets-plus":
+		execute("-e", "curl", values.Downloads.Tickets, "-o", access.Programs+"premium/"+folder[1])
+	case "events-virtual":
+		execute("-e", "curl", values.Downloads.Virtual, "-o", access.Programs+"premium/"+folder[1])
+	case "gravityforms":
+		execute("-e", "curl", values.Downloads.Gravity, "-o", access.Programs+"premium/"+folder[1])
+	case "polylang-pro":
+		execute("-e", "curl", values.Downloads.Polylang, "-o", access.Programs+"premium/"+folder[1])
+	case "searchwp":
+		execute("-e", "curl", values.Downloads.SearchWP, "-o", access.Programs+"premium/"+folder[1])
+	case "uji-countdown-premium":
+		execute("-e", "curl", values.Downloads.Uji, "-o", access.Programs+"premium/"+folder[1])
+	case "wp-all-export-pro":
+		execute("-e", "curl", values.Downloads.AllExport, "-o", access.Programs+"premium/"+folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
