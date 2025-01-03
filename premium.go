@@ -41,7 +41,7 @@ func premium() {
 	case "events-virtual":
 		execute("-e", "curl", values.Downloads.Virtual, "-o", access.Programs+"premium/"+folder[1])
 	case "gravityforms":
-		execute("-e", "curl", values.Downloads.Gravity, "-o", access.Programs+"premium/"+folder[1])
+		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Logins.Gravity)
 	case "polylang-pro":
 		execute("-e", "curl", values.Downloads.Polylang, "-o", access.Programs+"premium/"+folder[1])
 	case "searchwp":
