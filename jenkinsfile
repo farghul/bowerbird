@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'cactuar && deploy' }
     stages {
-        stage('Git') {
+        stage('Sync') {
             steps {
                 sh 'cd /data/scripts/automation/repos/bowerbird && git pull'
             }
@@ -15,7 +15,7 @@ pipeline {
             steps {
                 timeout(time: 3, unit: 'MINUTES') {
                     retry(2) {
-                        sh '/data/scripts/jira-automation/programs/bowerbird.sh'
+                        sh '/data/scripts/automation/programs/bowerbird.sh'
                     }
                 }
             }

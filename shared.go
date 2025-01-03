@@ -60,10 +60,8 @@ func rightplace() {
 // Switch to the desired branch, and pull any changes
 func prepare() {
 	var branch string
-	if flag == "-p" && folder[1] == "events-virtual" {
+	if flag == "-p" {
 		branch = "main"
-	} else if flag == "-p" {
-		branch = "master"
 	} else {
 		branch = "development"
 	}
