@@ -62,7 +62,7 @@ type Bundle struct {
 		Polylang  string `json:"polylang-pro"`
 		Allimport string `json:"wp-all-export-pro"`
 		Gravity   string `json:"gravityforms"`
-		Searchwp  string `json:"searchwp"`
+		SearchWP  string `json:"searchwp"`
 	} `json:"logins"`
 }
 
