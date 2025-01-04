@@ -19,7 +19,7 @@ const (
 	upbranch  string = "update/DESSO-"
 	halt      string = "program halted "
 	zero      string = "Not enough arguments supplied -"
-	bitbucket string = "/Bitbucket/"
+	bitbucket string = "/Documents/bitbucket/"
 )
 
 var (
@@ -51,10 +51,8 @@ func changedir() {
 func prepare() {
 	tracking("Preparing Branch")
 	var branch string
-	if flag == "-s" && folder[1] == "events-virtual" {
+	if flag == "-s" {
 		branch = "main"
-	} else if flag == "-s" {
-		branch = "master"
 	} else {
 		branch = "development"
 	}
@@ -84,12 +82,12 @@ func execute(task string, args ...string) {
 }
 
 // Run a terminal command, then capture and return the output as a byte
-func capture(task string, args ...string) []byte {
-	lpath, err := exec.LookPath(task)
-	inspect(err)
-	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
-	return osCmd
-}
+// func capture(task string, args ...string) []byte {
+// 	lpath, err := exec.LookPath(task)
+// 	inspect(err)
+// 	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
+// 	return osCmd
+// }
 
 // Check for errors, print the result if found
 func inspect(err error) {
@@ -130,13 +128,13 @@ func edge() bool {
 }
 
 // WIP - Dynamically update the require field in the composer.json file
-func monitor() {
-	// grep := capture("grep Version readme.txt | grep " + number[1] + " readme.txt | grep higher")
-	grep := capture("grep", "newer", "readme.txt")
-	// fmt.Println(bytes.IndexRune(grep, '*'))
-	requires := strings.Split(string(grep), " ")
-	evtp.Require.EventsCalendar = `>` + strings.Trim(requires[4], "\n")
-}
+// func monitor() {
+// 	// grep := capture("grep Version readme.txt | grep " + number[1] + " readme.txt | grep higher")
+// 	grep := capture("grep", "newer", "readme.txt")
+// 	// fmt.Println(bytes.IndexRune(grep, '*'))
+// 	requires := strings.Split(string(grep), " ")
+// 	evtp.Require.EventsCalendar = `>` + strings.Trim(requires[4], "\n")
+// }
 
 // Decide whether an update or release branch is needed, and make it so
 func checkout(prefix string) {
