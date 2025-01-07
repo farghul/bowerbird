@@ -10,7 +10,7 @@ Googles' [Go language](https://go.dev) installed to enable building executables 
 
 Login information to download update packages. -- ***premium content only*** --
 
-An `env.json` file containing your API URL and Basic token to enable authorized querying, and a `bundle.json` file containing everything needed to aquire the Premium plugin update files (see `jsons` folder for reference). Note: Information in the `bundle.json` is shared between Bowerbird and Silkworm.
+An `env.json` file containing your API URL and Basic token to enable authorized querying, and a `bundle.json` file containing everything needed to aquire the Premium plugin update files (see `jsons` folder for reference).
 
 ## Function
 

@@ -35,21 +35,21 @@ func premium() {
 
 	switch folder[1] {
 	case "events-calendar-pro":
-		execute("-e", "curl", values.Downloads.Calendar, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.Calendar, "-o", assets+"premium/"+folder[1])
 	case "event-tickets-plus":
-		execute("-e", "curl", values.Downloads.Tickets, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.Tickets, "-o", assets+"premium/"+folder[1])
 	case "events-virtual":
-		execute("-e", "curl", values.Downloads.Virtual, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.Virtual, "-o", assets+"premium/"+folder[1])
 	case "gravityforms":
 		login(values.Credentials[2].Username, values.Credentials[2].Password, values.Downloads.Gravity, values.Logins.Gravity)
 	case "polylang-pro":
-		execute("-e", "curl", values.Downloads.Polylang, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.Polylang, "-o", assets+"premium/"+folder[1])
 	case "searchwp":
-		execute("-e", "curl", values.Downloads.SearchWP, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.SearchWP, "-o", assets+"premium/"+folder[1])
 	case "uji-countdown-premium":
-		execute("-e", "curl", values.Downloads.Uji, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.Uji, "-o", assets+"premium/"+folder[1])
 	case "wp-all-export-pro":
-		execute("-e", "curl", values.Downloads.AllExport, "-o", access.Programs+"premium/"+folder[1])
+		execute("-e", "curl", values.Downloads.AllExport, "-o", assets+"premium/"+folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -95,7 +95,7 @@ func login(username, password, download, login string) {
 		"username": {username},
 	})
 
-	execute("-e", "curl", download, "-o", access.Programs+"premium/"+folder[1])
+	execute("-e", "curl", download, "-o", assets+"premium/"+folder[1])
 }
 
 // Create an update branch if necessary
