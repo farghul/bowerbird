@@ -38,16 +38,16 @@ Ensure the folder containing your ***composer.json*** file is predefined as vari
 
 Currently there are three supported scenarios available, using flags to specify each.
 
-### Subscription (Purchased third party plugins):
+### Premium (Subscription based third party plugins):
 
 ``` console
-bowerbird -s bcgov-plugin/events-virtual:1.13.4 795
+bowerbird -p premium-plugin/events-virtual:1.13.4 795
 ```
 
-### Packaged (Plugins currently available via WPackagist or Satis):
+### WPackagist (Plugins currently available via WPackagist):
 
 ``` console
-bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821
+bowerbird -w wpackagist-plugin/mailpoet:4.6.1 821
 ```
 
 ### Release (In-house Production ready content):
@@ -56,7 +56,7 @@ bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821
 bowerbird -r bcgov-plugin/bcgov-inline-comments:1.9.0 820
 ```
 
-Flags `-r` and `-p` can accept multiple updates, chain together as many as you like!
+Flags `-r` and `-w` can accept multiple updates, chain together as many as you like!
 
 ## License
 

@@ -7,10 +7,10 @@ func main() {
 		version()
 	case "-h", "--help":
 		about()
-	case "-p", "--packaged", "-r", "--release":
+	case "-w", "--wpackagist", "-r", "--release":
 		mrtest(flag)
-	case "-s", "--subscription":
-		flag = "-s"
+	case "-p", "--premium":
+		flag = "-p"
 		premtest()
 	case "--zero":
 		alert("No flag detected -")
@@ -27,8 +27,8 @@ func mrtest(flag string) {
 	if inputs >= 4 {
 		prepare()
 		switch flag {
-		case "-p", "--packaged":
-			flag = "-p"
+		case "-w", "--wpackagist":
+			flag = "-w"
 			wpackagist()
 		case "-r", "--release":
 			flag = "-r"

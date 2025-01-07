@@ -51,7 +51,7 @@ func changedir() {
 func prepare() {
 	tracking("Preparing Branch")
 	var branch string
-	if flag == "-s" {
+	if flag == "-p" {
 		branch = "main"
 	} else {
 		branch = "development"
@@ -155,7 +155,7 @@ func checkout(prefix string) {
 // Add and commit the update
 func commit() {
 	execute("git", "add", ".")
-	execute("git", "commit", "-m", plugin+" (DESSO-"+ticket+")")
+	execute("git", "commit", "-m", "DESSO-"+ticket+" plugin update "+plugin)
 }
 
 // Push modified content to the git repository
@@ -163,7 +163,7 @@ func push() {
 	switch flag {
 	case "-r":
 		execute("git", "push", "--set-upstream", "origin", relbranch+release)
-	case "-s":
+	case "-p":
 		execute("git", "push", "--set-upstream", "origin", upbranch+ticket)
 	default:
 		execute("git", "push")
@@ -194,11 +194,11 @@ func about() {
 	fmt.Println(yellow, "\nOptions:")
 	fmt.Println(green, " -h, --help", reset, "		Help Information")
 	fmt.Println(green, " -v, --version", reset, "	Display Program Version")
-	fmt.Println(green, " -s, --subscription", reset, "	Subscription Plugin Update")
+	fmt.Println(green, " -p, --premium", reset, "	Subscription Plugin Update")
 	fmt.Println(green, " -r, --release", reset, "	Production Release Plugin Update")
-	fmt.Println(green, " -p, --packaged", reset, "	Satis & WPackagist Plugin Update")
+	fmt.Println(green, " -w, --wpackagist", reset, "	Satis & WPackagist Plugin Update")
 	fmt.Println(yellow, "\nExample:", reset)
-	fmt.Println(green, "   bowerbird -p wpackagist-plugin/mailpoet:4.6.1 821")
+	fmt.Println(green, "   bowerbird -w wpackagist-plugin/mailpoet:4.6.1 821")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
 	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")
