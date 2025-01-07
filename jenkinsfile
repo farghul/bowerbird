@@ -1,9 +1,19 @@
 pipeline {
     agent { label 'cactuar && deploy' }
+    options {
+        buildDiscarder logRotator(
+            artifactDaysToKeepStr: "28",
+            artifactNumToKeepStr: "5",
+            daysToKeepStr: "56",
+            numToKeepStr: "10"
+        )
+    }
     stages {
         stage('Sync') {
             steps {
-                sh 'cd /data/scripts/automation/repos/bowerbird && git pull'
+                dir("/data/scripts/automation/repos/bowerbird") {
+                    sh 'git pull'
+                }
             }
         }
         stage('Build') {
@@ -13,7 +23,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                timeout(time: 3, unit: 'MINUTES') {
+                timeout(time: 1, unit: 'MINUTES') {
                     retry(2) {
                         sh '/data/scripts/automation/programs/bowerbird.sh'
                     }
