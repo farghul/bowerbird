@@ -23,13 +23,13 @@ From the root folder containing `main.go`, use the command that matches your env
 
 ### Windows & Mac:
 
-``` console
+``` zsh
 go build -o [name] .
 ```
 
 ### Linux:
 
-``` console
+``` zsh
 GOOS=linux GOARCH=amd64 go build -o [name] .
 ```
 
@@ -37,13 +37,13 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 
 Ensure the folder containing your ***composer.json*** file is predefined as variable and run:
 
-``` console
+``` zsh
 [program] [flag]
 ```
 
 ## Options
 
-``` console
+``` zsh
 -c, --core        Install WordPress core updates
 -h, --help        Help information
 -p, --premium     Install paid subscription updates
@@ -53,7 +53,7 @@ Ensure the folder containing your ***composer.json*** file is predefined as vari
 
 ## Example
 
-``` console
+``` zsh
 bowerbird -w
 ```
 

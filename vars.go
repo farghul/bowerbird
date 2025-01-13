@@ -37,6 +37,8 @@ type Atlassian struct {
 	Core      string `json:"core"`
 	Prem      string `json:"prem"`
 	Repos     string `json:"repos"`
+	Reviewer1 string `json:"reviewer1"`
+	Reviewer2 string `json:"reviewer2"`
 	ToDo      string `json:"todo"`
 	WordPress string `json:"wordpress"`
 	WPac      string `json:"wpac"`
