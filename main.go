@@ -4,8 +4,6 @@ package main
 func main() {
 	if len(route) > 1 {
 		switch route[1] {
-		case "-h", "--help":
-			help()
 		case "-c", "--core":
 			serialize()
 			core = compiler(access.Core)
@@ -15,17 +13,10 @@ func main() {
 				prepare()
 				packagist(core)
 			} else {
-				journal("Checked for WordPress core updates, none found.")
+				journal("No WordPress core update tickets to process.")
 			}
-		case "-d", "--developer":
-			serialize()
-			dev = compiler(access.Dev)
-			if len(dev) > 0 {
-				flag = "-d"
-				sift(dev)
-			} else {
-				journal("Checked for Developer plugin updates, none found.")
-			}
+		case "-h", "--help":
+			help()
 		case "-p", "--premium":
 			serialize()
 			prem = compiler(access.Prem)
@@ -33,7 +24,7 @@ func main() {
 				flag = "-p"
 				sift(prem)
 			} else {
-				journal("Checked for Premium plugin updates, none found.")
+				journal("No Premium plugin update tickets to process.")
 			}
 		case "-w", "--wpackagist":
 			serialize()
@@ -44,7 +35,7 @@ func main() {
 				prepare()
 				packagist(wpac)
 			} else {
-				journal("Checked for WPackagist plugin updates, none found.")
+				journal("No WPackagist plugin update tickets to process.")
 			}
 		case "-v", "--version":
 			version()

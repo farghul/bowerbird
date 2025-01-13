@@ -61,8 +61,10 @@ func rightplace() {
 func prepare() {
 	var branch string
 	if flag == "-p" {
+		// Premium plugins create an update branch from the main branch of their individual repos
 		branch = "main"
 	} else {
+		// All other tasks are directed towards the devlopment branch of the main blog repo
 		branch = "development"
 	}
 	execute("-e", "git", "switch", branch)
@@ -152,11 +154,10 @@ func help() {
 	fmt.Println("  [program] [flag]")
 	fmt.Println(yellow, "\nOptions:")
 	fmt.Println(green, " -c, --core", reset, "      Install WordPress core updates")
-	fmt.Println(green, " -d, --developer", reset, " Install internal developer updates")
 	fmt.Println(green, " -h, --help", reset, "      Help information")
-	fmt.Println(green, " -p, --premium", reset, "   Install paid subscription updates")
+	fmt.Println(green, " -p, --premium", reset, "   Install subscription updates")
 	fmt.Println(green, " -v, --version", reset, "   Display program version")
-	fmt.Println(green, " -w, --wpackagist", reset, "Install free wpackagist updates")
+	fmt.Println(green, " -w, --wpackagist", reset, "Install wpackagist updates")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println("   bowerbird -w")
 	fmt.Println(yellow, "\nHelp:", reset)

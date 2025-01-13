@@ -32,7 +32,6 @@ type EVTP struct {
 type Atlassian struct {
 	Cloud     string `json:"cloud"` // jira API production environment
 	Core      string `json:"core"`
-	Dev       string `json:"dev"`
 	Prem      string `json:"prem"`
 	Repos     string `json:"repos"`
 	ToDo      string `json:"todo"`
@@ -91,7 +90,7 @@ type Pack struct {
 }
 
 const (
-	bv       string = "2.0"
+	bv       string = "1.0.0"
 	branch   string = "update/"
 	reset    string = "\033[0m"
 	green    string = "\033[32m"
@@ -115,5 +114,5 @@ var (
 	access Atlassian
 	jsons  = []string{assets + "jsons/env.json", assets + "jsons/bundle.json"}
 	// Declare string slices
-	folder, number, dev, prem, wpac, core []string
+	folder, number, prem, wpac, core []string
 )

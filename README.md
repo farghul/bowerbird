@@ -45,7 +45,6 @@ Ensure the folder containing your ***composer.json*** file is predefined as vari
 
 ``` console
 -c, --core        Install WordPress core updates
--d, --developer   Install internal developer updates
 -h, --help        Help information
 -p, --premium     Install paid subscription updates
 -v, --version     Display program version
