@@ -25,6 +25,7 @@ func quarterback() {
 	tags()
 	tracking("Pushing to repository")
 	push()
+	pullrequest()
 }
 
 // Premium directs the preliminary actions to determine if the program can continue

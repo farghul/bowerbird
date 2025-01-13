@@ -28,13 +28,12 @@ func sift(box []string) {
 		i++
 		ticket = box[i]
 
-		if flag == "-w" {
-			require()
-			commit()
-		} else if flag == "-p" {
+		if flag == "-p" {
 			premium()
 		} else {
-			// Send the Dev ticket to READY
+			flag = "-w"
+			require()
+			commit()
 		}
 	}
 }
@@ -53,4 +52,9 @@ func push() {
 	default:
 		execute("-e", "git", "push")
 	}
+}
+
+// Create a pull request in BitBucket for the Production deployment release
+func pullrequest() {
+	execute("-e", "curl", "-L", "-X", "POST", "--url", access.BitBucket+branch+ticket+"/pull-requests/", "--header", "Authorization: Basic "+access.BBA, "--header", "Content-Type: application/json", "--data", "{'title': 'Update/"+ticket+"','source': {'branch': {'name': '"+branch+ticket+"'}}, 'destination': {'branch': {'name': 'main'}}'reviewers': [{'uuid': '{user_uuid}'}],'close_source_branch': true}")
 }

@@ -30,12 +30,14 @@ type EVTP struct {
 
 // Atlassian builds a list of jira tokens and api addresses
 type Atlassian struct {
-	Cloud     string `json:"cloud"` // jira API production environment
+	BBA       string `json:"bba"`
+	BitBucket string `json:"bitbucket"`
+	Jira      string `json:"jira"`
+	JQA       string `json:"jqa"`
 	Core      string `json:"core"`
 	Prem      string `json:"prem"`
 	Repos     string `json:"repos"`
 	ToDo      string `json:"todo"`
-	Token     string `json:"token"`
 	WordPress string `json:"wordpress"`
 	WPac      string `json:"wpac"`
 }
