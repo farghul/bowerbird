@@ -21,21 +21,29 @@ func serialize() {
 		inspect(err)
 		switch index {
 		case 0:
-			json.Unmarshal(data, &access)
+			json.Unmarshal(data, &bitbucket)
 		case 1:
-			json.Unmarshal(data, &values)
+			json.Unmarshal(data, &cred)
+		case 2:
+			json.Unmarshal(data, &download)
+		case 3:
+			json.Unmarshal(data, &jira)
+		case 4:
+			json.Unmarshal(data, &site)
+		case 5:
+			json.Unmarshal(data, &ppt)
 		}
 	}
 }
 
 func compiler(element string) []string {
-	json.Unmarshal(api(access.ToDo), &jira)
+	json.Unmarshal(api(jira.ToDo), &jira)
 	var candidate []string
 
-	for i := 0; i < len(jira.Issues); i++ {
-		if strings.Contains(jira.Issues[i].Fields.Summary, element) {
-			candidate = append(candidate, jira.Issues[i].Fields.Summary)
-			candidate = append(candidate, jira.Issues[i].Key)
+	for i := 0; i < len(query.Issues); i++ {
+		if strings.Contains(query.Issues[i].Fields.Summary, element) {
+			candidate = append(candidate, query.Issues[i].Fields.Summary)
+			candidate = append(candidate, query.Issues[i].Key)
 		}
 	}
 	return candidate
@@ -43,13 +51,13 @@ func compiler(element string) []string {
 
 // Search the Jira API
 func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", access.Jira+criteria, "--header", "Authorization: Basic "+access.JQA, "--header", "Accept: application/json")
+	result := execute("-c", "curl", "--request", "GET", "--url", jira.URL+criteria, "--header", "Authorization: Basic "+jira.Token, "--header", "Accept: application/json")
 	return result
 }
 
 // Confirm the current working directory is correct
 func rightplace() {
-	os.Chdir(access.WordPress)
+	os.Chdir(repos + ppt.WordPress)
 	var filePath string = "composer-prod.json"
 
 	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
@@ -78,7 +86,7 @@ func document(name string, d []byte) {
 
 // Enter a record to the log file
 func journal(message string) {
-	file, err := os.OpenFile(assets+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(programs+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)

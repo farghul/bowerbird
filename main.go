@@ -6,7 +6,7 @@ func main() {
 		switch route[1] {
 		case "-c", "--core":
 			serialize()
-			core = compiler(access.Core)
+			core = compiler(ppt.Core)
 			if len(core) > 0 {
 				flag = "-w"
 				rightplace()
@@ -19,7 +19,7 @@ func main() {
 			help()
 		case "-p", "--premium":
 			serialize()
-			prem = compiler(access.Prem)
+			prem = compiler(ppt.Prem)
 			if len(prem) > 0 {
 				flag = "-p"
 				sift(prem)
@@ -28,7 +28,7 @@ func main() {
 			}
 		case "-w", "--wpackagist":
 			serialize()
-			wpac = compiler(access.WPac)
+			wpac = compiler(ppt.WPac)
 			if len(wpac) > 0 {
 				flag = "-w"
 				rightplace()
