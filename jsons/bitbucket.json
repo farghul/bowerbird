@@ -1,0 +1,8 @@
+{
+    "uuid": "Universally Unique Identifier (UUID)",
+    "reviewer1": "Reviewer for PR's",
+    "reviewer2": "Reviewer for PR's",
+    "email": "Email address for the reporting user",
+    "url": "ButBucket API URL",
+    "token": "ButBucket API token"
+}
