@@ -75,7 +75,7 @@ func prepare() {
 		// All other tasks are directed towards the development branch of the main blog repository
 		branch = "development"
 	}
-	execute("-e", "git", "switch", branch)
+	execute("-e", "git", "checkout", branch)
 	execute("-e", "git", "pull")
 }
 

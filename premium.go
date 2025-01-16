@@ -102,7 +102,7 @@ func login(username, password, download, login string) {
 // Create an update branch if necessary
 func checkout(prefix string) {
 	if exists(prefix, ticket) {
-		execute("-e", "git", "switch", prefix+ticket)
+		execute("-e", "git", "checkout", prefix+ticket)
 	} else {
 		execute("-e", "git", "checkout", "-b", prefix+ticket)
 	}
