@@ -57,7 +57,7 @@ func api(criteria string) []byte {
 
 // Confirm the current working directory is correct
 func rightplace() {
-	os.Chdir(repos + ppt.WordPress)
+	os.Chdir(ppt.WordPress)
 	var filePath string = "composer-prod.json"
 
 	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
@@ -69,10 +69,10 @@ func rightplace() {
 func prepare() {
 	var branch string
 	if flag == "-p" {
-		// Premium plugins create an update branch from the main branch of their individual repos
+		// Premium plugins create an update branch from the main branch of their individual repositories
 		branch = "main"
 	} else {
-		// All other tasks are directed towards the devlopment branch of the main blog repo
+		// All other tasks are directed towards the development branch of the main blog repository
 		branch = "development"
 	}
 	execute("-e", "git", "switch", branch)
@@ -90,6 +90,7 @@ func journal(message string) {
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)
+	fmt.Println(message)
 }
 
 // Run a terminal command using flags to customize the output

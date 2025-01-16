@@ -16,7 +16,6 @@ An selection of `json` files to enable authorized querying, and everything neede
 
 Bowerbird searches the targeted Jira API for tickets marked as **"New"** (aka ToDo), and filtered with labels such as *wordpress-plugin*. It then gathers the qualifying candidates and runs a series of `composer require` commands on the ***composer.json*** file and pushes the updates to a designated branch. Additional steps such as downloading update files and version tagging may be performed for premium content prior to the push.
 
-
 ## Build
 
 From the root folder containing `main.go`, use the command that matches your environment:
