@@ -37,7 +37,7 @@ func serialize() {
 }
 
 func compiler(element string) []string {
-	json.Unmarshal(api(jira.ToDo), &jira)
+	json.Unmarshal(api(jira.ToDo), &query)
 	var candidate []string
 
 	for i := 0; i < len(query.Issues); i++ {
