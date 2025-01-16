@@ -115,23 +115,23 @@ const (
 	halt     string = "program halted "
 	zero     string = "Not enough arguments supplied -"
 	programs string = "/data/scripts/automation/programs/"
-	repos    string = "/data/scripts/automation/repos/"
+	repos    string = "/data/scripts/automation/bitbucket/"
 )
 
 var (
 	flag      string
 	plugin    string
 	ticket    string
+	query     JQL
 	ecp       ECP
 	evtp      EVTP
-	query     JQL
 	jira      Jira
 	satis     Satis
 	ppt       Nouns
 	site      Logins
 	bitbucket BitBucket
-	cred      Credentials
 	download  Downloads
+	cred      Credentials
 	jsons     = []string{programs + "jsons/bitbucket.json", programs + "jsons/credentials.json", programs + "jsons/downloads.json", programs + "jsons/jira.json", programs + "jsons/logins.json", programs + "jsons/nouns.json"}
 	// Declare string slices
 	folder, number, prem, wpac, core []string
