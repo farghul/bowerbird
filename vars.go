@@ -114,7 +114,7 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	zero     string = "Not enough arguments supplied -"
-	programs string = "/data/scripts/automation/programs/"
+	assets   string = "/data/scripts/automation/assets/"
 	repos    string = "/data/scripts/automation/bitbucket/"
 )
 
@@ -132,7 +132,7 @@ var (
 	bitbucket BitBucket
 	download  Downloads
 	cred      Credentials
-	jsons     = []string{programs + "jsons/bitbucket.json", programs + "jsons/credentials.json", programs + "jsons/downloads.json", programs + "jsons/jira.json", programs + "jsons/logins.json", programs + "jsons/nouns.json"}
+	jsons     = []string{assets + "jsons/bitbucket.json", assets + "jsons/credentials.json", assets + "jsons/downloads.json", assets + "jsons/jira.json", assets + "jsons/logins.json", assets + "jsons/nouns.json"}
 	// Declare string slices
 	folder, number, prem, wpac, core []string
 )

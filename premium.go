@@ -36,21 +36,21 @@ func premium() {
 
 	switch folder[1] {
 	case "events-calendar-pro":
-		execute("-e", "curl", download.Calendar, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.Calendar, "-o", assets+"temp/"+folder[1])
 	case "event-tickets-plus":
-		execute("-e", "curl", download.Tickets, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.Tickets, "-o", assets+"temp/"+folder[1])
 	case "events-virtual":
-		execute("-e", "curl", download.Virtual, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.Virtual, "-o", assets+"temp/"+folder[1])
 	case "gravityforms":
 		login(cred[2].Username, cred[2].Password, download.Gravity, site.Gravity)
 	case "polylang-pro":
-		execute("-e", "curl", download.Polylang, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.Polylang, "-o", assets+"temp/"+folder[1])
 	case "searchwp":
-		execute("-e", "curl", download.SearchWP, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.SearchWP, "-o", assets+"temp/"+folder[1])
 	case "uji-countdown-premium":
-		execute("-e", "curl", download.Uji, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.Uji, "-o", assets+"temp/"+folder[1])
 	case "wp-all-export-pro":
-		execute("-e", "curl", download.AllExport, "-o", programs+"premium/"+folder[1])
+		execute("-e", "curl", download.AllExport, "-o", assets+"temp/"+folder[1])
 	}
 
 	satis.Version, ecp.Version, evtp.Version = number[1], number[1], number[1]
@@ -96,7 +96,7 @@ func login(username, password, download, login string) {
 		"username": {username},
 	})
 
-	execute("-e", "curl", download, "-o", programs+"premium/"+folder[1])
+	execute("-e", "curl", download, "-o", assets+"temp/"+folder[1])
 }
 
 // Create an update branch if necessary
@@ -110,7 +110,7 @@ func checkout(prefix string) {
 
 // Run the update script on downloaded content
 func script() {
-	execute("-e", "sh", "-c", "scripts/update.sh ~/automation/premium/"+folder[1]+"/")
+	execute("-e", "sh", "-c", "scripts/update.sh ~/automation/temp/"+folder[1]+"/")
 }
 
 // Convert the structure back into json and overwrite the composer.json file

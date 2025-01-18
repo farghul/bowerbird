@@ -16,6 +16,7 @@ var (
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
+	clearout(assets + "temp")
 	for index, element := range jsons {
 		data, err := os.ReadFile(element)
 		inspect(err)
@@ -86,7 +87,7 @@ func document(name string, d []byte) {
 
 // Enter a record to the log file
 func journal(message string) {
-	file, err := os.OpenFile(programs+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(assets+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)
@@ -137,6 +138,40 @@ func edge() bool {
 		found = true
 	}
 	return found
+}
+
+// Empty the contents a folder
+func clearout(path string) {
+	list := ls(path)
+	for _, file := range list {
+		sweep(path + file)
+	}
+}
+
+// Remove files or directories
+func sweep(cut ...string) {
+	inspect(os.Remove(cut[0.]))
+}
+
+// Record a list of files in a folder
+func ls(folder string) []string {
+	var content []string
+	dir := expose(folder)
+
+	files, err := dir.ReadDir(0)
+	inspect(err)
+
+	for _, f := range files {
+		content = append(content, f.Name())
+	}
+	return content
+}
+
+// Open a file for reading and return an os.File variable
+func expose(file string) *os.File {
+	outcome, err := os.Open(file)
+	inspect(err)
+	return outcome
 }
 
 // Print a colourized error message
