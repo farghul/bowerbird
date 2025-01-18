@@ -131,3 +131,8 @@ func tags() {
 	execute("-e", "git", "tag", "v"+satis.Version)
 	execute("-e", "git", "push", "origin", "--tags")
 }
+
+// Create a pull request in BitBucket for any updated Premium plugins
+func pullrequest() {
+	execute("-e", "curl", "-L", "-X", "POST", "--url", bitbucket.URL+branch+ticket+"/pull-requests/", "--header", "Authorization: Basic "+bitbucket.Token, "--header", "Content-Type: application/json", "--data", "{'title': 'Update/"+ticket+"','source': {'branch': {'name': '"+branch+ticket+"'}}, 'destination': {'branch': 'name': 'main'}, 'reviewers': [{'uuid': '"+bitbucket.Reviewer1+"'}], 'close_source_branch': true}")
+}
