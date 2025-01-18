@@ -16,7 +16,7 @@ var (
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
-	clearout(assets + "temp")
+	clearout(assets + "temp/")
 	for index, element := range jsons {
 		data, err := os.ReadFile(element)
 		inspect(err)
