@@ -25,7 +25,7 @@ func quarterback() {
 	tags()
 	tracking("Pushing to repository")
 	push()
-	pullrequest()
+	// pullrequest()
 }
 
 // Premium directs the preliminary actions to determine if the program can continue
@@ -110,7 +110,7 @@ func checkout(prefix string) {
 
 // Run the update script on downloaded content
 func script() {
-	execute("-e", "sh", "-c", "scripts/update.sh ~/automation/temp/"+folder[1]+"/")
+	execute("-e", "sh", "-c", "scripts/update.sh "+assets+"temp/"+folder[1]+"/")
 }
 
 // Convert the structure back into json and overwrite the composer.json file
