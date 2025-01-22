@@ -1,6 +1,3 @@
 {
-    "core": "roots",
-    "prem": "Premium subscription search keyword",
-    "wordpress": "Name of the WordPress install folder",
-    "wpac": "WordPress Packagist search keyword"
+    "wordpress": "Path to the WordPress install folder"
 }

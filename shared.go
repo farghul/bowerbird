@@ -24,14 +24,8 @@ func serialize() {
 		case 0:
 			json.Unmarshal(data, &bitbucket)
 		case 1:
-			json.Unmarshal(data, &cred)
-		case 2:
-			json.Unmarshal(data, &download)
-		case 3:
 			json.Unmarshal(data, &jira)
-		case 4:
-			json.Unmarshal(data, &site)
-		case 5:
+		case 2:
 			json.Unmarshal(data, &ppt)
 		}
 	}
@@ -66,23 +60,10 @@ func rightplace() {
 	}
 }
 
-// Switch to the desired branch, and pull any changes
+// Switch to the development branch, and pull any changes
 func prepare() {
-	var branch string
-	if flag == "-p" {
-		// Premium plugins create an update branch from the main branch of their individual repositories
-		branch = "main"
-	} else {
-		// All other tasks are directed towards the development branch of the main blog repository
-		branch = "development"
-	}
-	execute("-e", "git", "checkout", branch)
+	execute("-e", "git", "checkout", "development")
 	execute("-e", "git", "pull")
-}
-
-// Write a passed variable to a named file
-func document(name string, d []byte) {
-	inspect(os.WriteFile(name, d, 0644))
 }
 
 // Enter a record to the log file
@@ -90,7 +71,6 @@ func journal(message string) {
 	file, err := os.OpenFile(assets+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
-	log.Println(message)
 	fmt.Println(message)
 }
 
@@ -119,16 +99,6 @@ func inspect(err error) {
 		fmt.Println(err)
 		return
 	}
-}
-
-// Check to see if the current release branch already exists locally
-func exists(prefix, tag string) bool {
-	found := false
-	b, _ := exec.Command("git", "branch").Output()
-	if strings.Contains(string(b), prefix+tag) {
-		found = true
-	}
-	return found
 }
 
 // Check for edge cases which require the -W flag
@@ -199,9 +169,8 @@ func help() {
 	fmt.Println(yellow, "\nOptions:")
 	fmt.Println(green, " -c, --core", reset, "      Install WordPress core updates")
 	fmt.Println(green, " -h, --help", reset, "      Help information")
-	fmt.Println(green, " -p, --premium", reset, "   Install subscription updates")
 	fmt.Println(green, " -v, --version", reset, "   Display program version")
-	fmt.Println(green, " -w, --wpackagist", reset, "Install wpackagist updates")
+	fmt.Println(green, " -w, --wpackagist", reset, "Install WPackagist plugin updates")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println("   bowerbird -w")
 	fmt.Println(yellow, "\nHelp:", reset)

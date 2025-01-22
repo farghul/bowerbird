@@ -5,38 +5,11 @@ func main() {
 	if len(route) > 1 {
 		switch route[1] {
 		case "-c", "--core":
-			serialize()
-			core = compiler(ppt.Core)
-			if len(core) > 0 {
-				flag = "-w"
-				rightplace()
-				prepare()
-				packagist(core)
-			} else {
-				journal("No WordPress core update tickets to process.")
-			}
+			director("roots")
 		case "-h", "--help":
 			help()
-		case "-p", "--premium":
-			serialize()
-			prem = compiler(ppt.Prem)
-			if len(prem) > 0 {
-				flag = "-p"
-				sift(prem)
-			} else {
-				journal("No Premium plugin update tickets to process.")
-			}
 		case "-w", "--wpackagist":
-			serialize()
-			wpac = compiler(ppt.WPac)
-			if len(wpac) > 0 {
-				flag = "-w"
-				rightplace()
-				prepare()
-				packagist(wpac)
-			} else {
-				journal("No WPackagist plugin update tickets to process.")
-			}
+			director("wpackagist")
 		case "-v", "--version":
 			version()
 		default:
@@ -45,5 +18,17 @@ func main() {
 		}
 	} else {
 		alert("No flag detected -")
+	}
+}
+
+func director(variety string) {
+	serialize()
+	flavour := compiler(variety)
+	if len(flavour) > 0 {
+		rightplace()
+		prepare()
+		packagist(flavour)
+	} else {
+		journal("No update tickets to process.")
 	}
 }

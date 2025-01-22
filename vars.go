@@ -10,45 +10,6 @@ type BitBucket struct {
 	UUID      string `json:"uuid"`
 }
 
-// Credentials builds a username:password array
-type Credentials []struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-// Downloads contains the direct download links
-type Downloads struct {
-	Polylang  string `json:"polylang-pro"`
-	AllExport string `json:"wp-all-export-pro"`
-	Gravity   string `json:"gravityforms"`
-	SearchWP  string `json:"searchwp"`
-	Calendar  string `json:"events-calendar-pro"`
-	Tickets   string `json:"event-tickets-plus"`
-	Virtual   string `json:"events-virtual"`
-	Uji       string `json:"uji-countdown-premium"`
-}
-
-// ECP structure captures the contents of the composer.json file for Events Calendar Pro
-type ECP struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-	Require struct {
-		EventsCalendar string `json:"wpackagist-plugin/the-events-calendar"`
-	} `json:"require"`
-}
-
-// EVTP structure captures the contents of the composer.json file for Events Tickets Plus
-type EVTP struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
-	Type    string `json:"type"`
-	Require struct {
-		EventsCalendar string `json:"wpackagist-plugin/the-events-calendar"`
-		EventsTicket   string `json:"wpackagist-plugin/event-tickets"`
-	} `json:"require"`
-}
-
 // Jira builds a list of jira tokens and api addresses
 type Jira struct {
 	Token string `json:"token"`
@@ -81,20 +42,9 @@ type JQL struct {
 	} `json:"issues"`
 }
 
-// Logins holds the login URLs to access their accounts
-type Logins struct {
-	Polylang  string `json:"polylang-pro"`
-	Allimport string `json:"wp-all-export-pro"`
-	Gravity   string `json:"gravityforms"`
-	SearchWP  string `json:"searchwp"`
-}
-
 // Nouns builds a list of jira tokens and api addresses
 type Nouns struct {
-	Core      string `json:"core"`
-	Prem      string `json:"prem"`
 	WordPress string `json:"wordpress"`
-	WPac      string `json:"wpac"`
 }
 
 // Satis structure captures the contents of the composer.json file for typical premium plugins
@@ -119,20 +69,11 @@ const (
 )
 
 var (
-	flag      string
+	query     JQL
+	jira      Jira
+	ppt       Nouns
 	plugin    string
 	ticket    string
-	query     JQL
-	ecp       ECP
-	evtp      EVTP
-	jira      Jira
-	satis     Satis
-	ppt       Nouns
-	site      Logins
 	bitbucket BitBucket
-	download  Downloads
-	cred      Credentials
-	jsons     = []string{assets + "jsons/bitbucket.json", assets + "jsons/credentials.json", assets + "jsons/downloads.json", assets + "jsons/jira.json", assets + "jsons/logins.json", assets + "jsons/nouns.json"}
-	// Declare string slices
-	folder, number, prem, wpac, core []string
+	jsons     = []string{assets + "jsons/bitbucket.json", assets + "jsons/jira.json", assets + "jsons/nouns.json"}
 )

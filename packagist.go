@@ -27,14 +27,8 @@ func sift(box []string) {
 		plugin = box[i]
 		i++
 		ticket = box[i]
-
-		if flag == "-p" {
-			premium()
-		} else {
-			flag = "-w"
-			require()
-			commit()
-		}
+		require()
+		commit()
 	}
 }
 
@@ -46,10 +40,5 @@ func commit() {
 
 // Push modified content to the git repository
 func push() {
-	switch flag {
-	case "-p":
-		execute("-e", "git", "push", "--set-upstream", "origin", branch+ticket)
-	default:
-		execute("-e", "git", "push")
-	}
+	execute("-e", "git", "push")
 }
