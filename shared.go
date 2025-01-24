@@ -10,9 +10,17 @@ import (
 	"strings"
 )
 
-var (
-	route = os.Args
-)
+// Test for an optional flag
+func flags() string {
+	var flag string
+
+	if len(os.Args) == 1 {
+		flag = "--zero"
+	} else {
+		flag = os.Args[1]
+	}
+	return flag
+}
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
@@ -22,17 +30,21 @@ func serialize() {
 		inspect(err)
 		switch index {
 		case 0:
-			json.Unmarshal(data, &bitbucket)
+			err := json.Unmarshal(data, &bitbucket)
+			inspect(err)
 		case 1:
-			json.Unmarshal(data, &jira)
+			err := json.Unmarshal(data, &jira)
+			inspect(err)
 		case 2:
-			json.Unmarshal(data, &ppt)
+			err := json.Unmarshal(data, &ppt)
+			inspect(err)
 		}
 	}
 }
 
 func compiler(element string) []string {
-	json.Unmarshal(api(jira.ToDo), &query)
+	err := json.Unmarshal(api(jira.ToDo), &query)
+	inspect(err)
 	var candidate []string
 
 	for i := 0; i < len(query.Issues); i++ {
@@ -52,7 +64,8 @@ func api(criteria string) []byte {
 
 // Confirm the current working directory is correct
 func rightplace() {
-	os.Chdir(ppt.WordPress)
+	err := os.Chdir(ppt.WordPress)
+	inspect(err)
 	var filePath string = "composer-prod.json"
 
 	if _, err := os.Stat(filePath); errors.Is(err, os.ErrNotExist) {
@@ -62,8 +75,8 @@ func rightplace() {
 
 // Switch to the development branch, and pull any changes
 func prepare() {
-	execute("-e", "git", "checkout", "development")
-	execute("-e", "git", "pull")
+	execute("-v", "git", "checkout", "development")
+	execute("-v", "git", "pull")
 }
 
 // Enter a record to the log file
@@ -78,8 +91,6 @@ func journal(message string) {
 func execute(variation, task string, args ...string) []byte {
 	osCmd := exec.Command(task, args...)
 	switch variation {
-	case "-e":
-		exec.Command(task, args...).CombinedOutput()
 	case "-c":
 		result, err := osCmd.Output()
 		inspect(err)
