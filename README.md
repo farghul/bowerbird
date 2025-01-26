@@ -12,11 +12,17 @@ An selection of `json` files to enable authorized Jira API querying, and everyth
 
 ## Function
 
-Bowerbird searches the targeted Jira API for tickets marked as **"New"** (aka ToDo), and filtered with labels such as *wordpress-plugin*. It then gathers the qualifying candidates and runs a series of `composer require` commands on the ***composer.json*** file and pushes the updates to a designated branch.
+Bowerbird searches the targeted Jira API for tickets marked as **"New"** (aka ToDo), with a summary containing the `wordpress-plugin` vendor tag. It then gathers the qualifying candidates and runs a series of `composer require` commands on the ***composer.json*** file and pushes the updates to a designated branch.
 
 ## Build
 
-From the root folder containing `main.go`, use the command that matches your environment:
+Before building the application, change the value of the `assets` constant to reflect your environment:
+
+``` go
+assets string = "/data/scripts/automation/assets/"
+```
+
+Then, from the root folder containing `main.go`, use the command that matches your environment:
 
 ### Windows & Mac:
 
@@ -32,25 +38,21 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 
 ## Run
 
-Ensure the folder containing your ***composer.json*** file is predefined as variable and run:
-
 ``` zsh
 [program] [flag]
 ```
 
-## Options
+## Optional Flags
 
 ``` zsh
--c, --core        Install WordPress core updates
 -h, --help        Help information
 -v, --version     Display program version
--w, --wpackagist  Install free WPackagist updates
 ```
 
 ## Example
 
 ``` zsh
-bowerbird -w
+bowerbird -h
 ```
 
 ## License

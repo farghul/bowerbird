@@ -42,6 +42,7 @@ func serialize() {
 	}
 }
 
+// Compile the results of a Jira API query and save summary and key into a string slice
 func compiler(element string) []string {
 	err := json.Unmarshal(api(jira.ToDo), &query)
 	inspect(err)
@@ -177,13 +178,11 @@ func version() {
 func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  [program] [flag]")
-	fmt.Println(yellow, "\nOptions:")
-	fmt.Println(green, " -c, --core", reset, "      Install WordPress core updates")
+	fmt.Println(yellow, "\nOptional Flags:")
 	fmt.Println(green, " -h, --help", reset, "      Help information")
 	fmt.Println(green, " -v, --version", reset, "   Display program version")
-	fmt.Println(green, " -w, --wpackagist", reset, "Install WPackagist plugin updates")
 	fmt.Println(yellow, "\nExample:", reset)
-	fmt.Println("   bowerbird -w")
+	fmt.Println("   bowerbird -h")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
 	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")
