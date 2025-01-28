@@ -12,6 +12,12 @@ func packagist(flavour []string) {
 	push()
 }
 
+// Switch to the development branch, and pull any changes
+func prepare() {
+	execute("-v", "git", "checkout", "development")
+	execute("-v", "git", "pull")
+}
+
 // Run the appropriate composer require command based on the flag value
 func require() {
 	if edge() {

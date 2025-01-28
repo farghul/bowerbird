@@ -45,14 +45,15 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 ## Optional Flags
 
 ``` zsh
--h, --help        Help information
--v, --version     Display program version
+-h, --help          Help information
+-v, --version       Display program version
+-w, --wpackagist    Run program
 ```
 
 ## Example
 
 ``` zsh
-bowerbird -h
+bowerbird -w
 ```
 
 ## License

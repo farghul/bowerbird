@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"log"
+	"os"
+)
+
 // Launch the program and execute the appropriate code
 func main() {
 	var flag string = flags()
@@ -9,7 +15,7 @@ func main() {
 		help()
 	case "-v", "--version":
 		version()
-	case "--zero":
+	case "-w", "--wpackagist":
 		serialize()
 		result := compiler("wpackagist")
 		if len(result) > 0 {
@@ -19,8 +25,52 @@ func main() {
 		} else {
 			journal("No WPackagist update tickets to process.")
 		}
+	case "--zero":
+		alert("No flag detected -")
 	default:
 		alert("Unknown flag -")
 		help()
 	}
+}
+
+// Enter a record to the log file
+func journal(message string) {
+	file, err := os.OpenFile(assets+"logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	inspect(err)
+	log.SetOutput(file)
+	fmt.Println(message)
+}
+
+// Print a colourized error message
+func alert(message string) {
+	fmt.Println("\n", bgred, message, halt, reset)
+	fmt.Println(bgyellow, "Use -h for more detailed help information ")
+	os.Exit(0)
+}
+
+// Provide and highlight informational messages
+func tracking(message string) {
+	fmt.Println(yellow)
+	fmt.Println("**", reset, message, yellow, "**", reset)
+}
+
+// Print program version number
+func version() {
+	fmt.Println("\n", yellow+"Bowerbird", green+bv, reset)
+}
+
+// Print help information for using the program
+func help() {
+	fmt.Println(yellow, "\nUsage:", reset)
+	fmt.Println("  [program] [flag]")
+	fmt.Println(yellow, "\nOperational Flags:")
+	fmt.Println(green, " -h, --help", reset, "        Help information")
+	fmt.Println(green, " -v, --version", reset, "     Display program version")
+	fmt.Println(green, " -w, --wpackagist", reset, "  Run program")
+	fmt.Println(yellow, "\nExample:", reset)
+	fmt.Println("   bowerbird -h")
+	fmt.Println(yellow, "\nHelp:", reset)
+	fmt.Println("  For more information go to:")
+	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")
+	fmt.Println(reset)
 }
