@@ -13,9 +13,7 @@ func main() {
 	switch flag {
 	case "-h", "--help":
 		help()
-	case "-v", "--version":
-		version()
-	case "-w", "--wpackagist":
+	case "-r", "--run":
 		serialize()
 		result := compiler("wpackagist")
 		if len(result) > 0 {
@@ -25,10 +23,12 @@ func main() {
 		} else {
 			journal("No WPackagist update tickets to process.")
 		}
+	case "-v", "--version":
+		version()
 	case "--zero":
 		alert("No flag detected -")
 	default:
-		alert("Unknown flag -")
+		alert("Unknown argument(s) -")
 		help()
 	}
 }
@@ -64,9 +64,9 @@ func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  [program] [flag]")
 	fmt.Println(yellow, "\nOperational Flags:")
-	fmt.Println(green, " -h, --help", reset, "        Help information")
-	fmt.Println(green, " -v, --version", reset, "     Display program version")
-	fmt.Println(green, " -w, --wpackagist", reset, "  Run program")
+	fmt.Println(green, " -h, --help", reset, "      Help information")
+	fmt.Println(green, " -r, --run", reset, "       Run Program")
+	fmt.Println(green, " -v, --version", reset, "   Display program version")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println("   bowerbird -h")
 	fmt.Println(yellow, "\nHelp:", reset)
