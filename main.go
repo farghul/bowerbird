@@ -68,7 +68,7 @@ func help() {
 	fmt.Println(green, " -r, --run", reset, "       Run Program")
 	fmt.Println(green, " -v, --version", reset, "   Display program version")
 	fmt.Println(yellow, "\nExample:", reset)
-	fmt.Println("   bowerbird -h")
+	fmt.Println("   bowerbird -r")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
 	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")
