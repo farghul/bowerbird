@@ -53,6 +53,8 @@ func prepare() {
 	var branch string
 	if flag == "-p" {
 		branch = "main"
+	} else if flag == "-r" {
+		branch = "master"
 	} else {
 		branch = "development"
 	}
@@ -80,14 +82,6 @@ func execute(task string, args ...string) {
 	err := osCmd.Run()
 	inspect(err)
 }
-
-// Run a terminal command, then capture and return the output as a byte
-// func capture(task string, args ...string) []byte {
-// 	lpath, err := exec.LookPath(task)
-// 	inspect(err)
-// 	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
-// 	return osCmd
-// }
 
 // Check for errors, print the result if found
 func inspect(err error) {
@@ -127,15 +121,6 @@ func edge() bool {
 	return found
 }
 
-// WIP - Dynamically update the require field in the composer.json file
-// func monitor() {
-// 	// grep := capture("grep Version readme.txt | grep " + number[1] + " readme.txt | grep higher")
-// 	grep := capture("grep", "newer", "readme.txt")
-// 	// fmt.Println(bytes.IndexRune(grep, '*'))
-// 	requires := strings.Split(string(grep), " ")
-// 	evtp.Require.EventsCalendar = `>` + strings.Trim(requires[4], "\n")
-// }
-
 // Decide whether an update or release branch is needed, and make it so
 func checkout(prefix string) {
 	suffix := ""
@@ -155,7 +140,7 @@ func checkout(prefix string) {
 // Add and commit the update
 func commit() {
 	execute("git", "add", ".")
-	execute("git", "commit", "-m", "DESSO-"+ticket+" plugin update "+plugin)
+	execute("git", "commit", "-m", "DESSO-"+ticket, "-m", "Update "+plugin)
 }
 
 // Push modified content to the git repository

@@ -3,7 +3,7 @@ package main
 // A sequential list of tasks run to complete the program
 func wpackagist() {
 	tracking("Composer Update")
-	execute("composer", "update", "--no-install")
+	update()
 	tracking("Plugin Update")
 	sift()
 	tracking("Git Push")
@@ -15,6 +15,15 @@ func released() {
 	release = solicit("Enter the current release number: ")
 	checkout(relbranch)
 	wpackagist()
+}
+
+// Run the appropriate composer update command based on the flag value
+func update() {
+	if flag == "-r" {
+		execute("env", "COMPOSER=composer-prod.json", "composer", "update", "--no-install")
+	} else {
+		execute("composer", "update", "--no-install")
+	}
 }
 
 // Run the appropriate composer require command based on the flag value
