@@ -98,15 +98,6 @@ func inspect(err error) {
 	}
 }
 
-// Check for edge cases which require the -W flag
-func edge() bool {
-	found := false
-	if strings.Contains(plugin, "roots/wordpress") {
-		found = true
-	}
-	return found
-}
-
 // Empty the contents a folder
 func clearout(path string) {
 	list := ls(path)
