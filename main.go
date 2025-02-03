@@ -14,8 +14,8 @@ func main() {
 	case "-h", "--help":
 		help()
 	case "-r", "--run":
+		serialize()
 		for _, element := range variations {
-			serialize()
 			result := compiler(element)
 			if len(result) > 0 {
 				rightplace()
