@@ -14,14 +14,16 @@ func main() {
 	case "-h", "--help":
 		help()
 	case "-r", "--run":
-		serialize()
-		result := compiler("wpackagist")
-		if len(result) > 0 {
-			rightplace()
-			prepare()
-			packagist(result)
-		} else {
-			journal("No WPackagist update tickets to process.")
+		for _, element := range variations {
+			serialize()
+			result := compiler(element)
+			if len(result) > 0 {
+				rightplace()
+				prepare()
+				packagist(result)
+			} else {
+				journal("No " + element + " update tickets to process.")
+			}
 		}
 	case "-v", "--version":
 		version()

@@ -67,11 +67,12 @@ const (
 )
 
 var (
-	query     JQL
-	jira      Jira
-	ppt       Nouns
-	plugin    string
-	ticket    string
-	bitbucket BitBucket
-	jsons     = []string{assets + "jsons/bitbucket.json", assets + "jsons/jira.json", assets + "jsons/nouns.json"}
+	query      JQL
+	jira       Jira
+	ppt        Nouns
+	plugin     string
+	ticket     string
+	bitbucket  BitBucket
+	variations = []string{"freemius", "wpackagist", "wpengine"}
+	jsons      = []string{assets + "jsons/bitbucket.json", assets + "jsons/jira.json", assets + "jsons/nouns.json"}
 )
