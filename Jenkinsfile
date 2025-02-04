@@ -8,9 +8,6 @@ pipeline {
             numToKeepStr: "10"
         )
     }
-    triggers {
-        cron "H 11 * * 3"
-    }
     stages {
         stage("Sync") {
             steps {
@@ -35,7 +32,7 @@ pipeline {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh "/data/scripts/automation/scripts/run_bowerbird.sh"
+                            sh "/data/scripts/automation/scripts/run_bowerbird.sh ${task}"
                         }
                     }
                 }

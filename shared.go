@@ -41,6 +41,18 @@ func serialize() {
 	}
 }
 
+// Execute the main set of program functions
+func engine(element string) {
+	result := compiler(element)
+	if len(result) > 0 {
+		rightplace()
+		prepare()
+		packagist(result)
+	} else {
+		journal("No " + element + " update tickets to process.")
+	}
+}
+
 // Compile the results of a Jira API query and save summary and key into a string slice
 func compiler(element string) []string {
 	err := json.Unmarshal(api(jira.ToDo), &query)

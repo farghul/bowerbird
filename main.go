@@ -13,17 +13,13 @@ func main() {
 	switch flag {
 	case "-h", "--help":
 		help()
+	case "-p", "--premium": // This assumes the individual repo has been updated and tagged in Satis
+		serialize()
+		engine("premium")
 	case "-r", "--run":
 		serialize()
 		for _, element := range variations {
-			result := compiler(element)
-			if len(result) > 0 {
-				rightplace()
-				prepare()
-				packagist(result)
-			} else {
-				journal("No " + element + " update tickets to process.")
-			}
+			engine(element)
 		}
 	case "-v", "--version":
 		version()
