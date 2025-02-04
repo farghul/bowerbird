@@ -9,7 +9,7 @@ pipeline {
         )
     }
     triggers {
-        cron "H 10 * * 3"
+        cron "H 11 * * 3"
     }
     stages {
         stage("Sync") {
