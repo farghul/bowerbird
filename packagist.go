@@ -8,8 +8,6 @@ func packagist(flavour []string) {
 	sift(flavour)
 	tracking("Writing to log file")
 	journal(ticket + " " + plugin)
-	tracking("Pushing to repository")
-	push()
 }
 
 // Switch to the development branch, and pull any changes

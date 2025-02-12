@@ -16,11 +16,15 @@ func main() {
 	case "-p", "--premium": // This assumes the individual repo has been updated and tagged in Satis
 		serialize()
 		engine("premium")
+		tracking("Pushing to repository")
+		push()
 	case "-r", "--run":
 		serialize()
 		for _, element := range variations {
 			engine(element)
 		}
+		tracking("Pushing to repository")
+		push()
 	case "-v", "--version":
 		version()
 	case "--zero":
