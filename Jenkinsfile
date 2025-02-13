@@ -32,7 +32,7 @@ pipeline {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh "/data/scripts/automation/scripts/run_bowerbird.sh ${task}"
+                            sh "/data/scripts/automation/scripts/run_bowerbird.sh"
                         }
                     }
                 }
