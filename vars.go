@@ -10,9 +10,10 @@ type BitBucket struct {
 
 // Jira builds a list of jira tokens and api addresses
 type Jira struct {
-	Token string `json:"token"`
-	ToDo  string `json:"todo"`
-	URL   string `json:"url"`
+	Review string `json:"review"`
+	Token  string `json:"token"`
+	ToDo   string `json:"todo"`
+	URL    string `json:"url"`
 }
 
 // JQL holds the extracted data from the JQL queries
@@ -73,6 +74,6 @@ var (
 	plugin     string
 	ticket     string
 	bitbucket  BitBucket
-	variations = []string{"freemius", "wpackagist", "wpengine"}
+	variations = []string{"freemius", "premium", "wpackagist", "wpengine"}
 	jsons      = []string{assets + "jsons/bitbucket.json", assets + "jsons/jira.json", assets + "jsons/nouns.json"}
 )

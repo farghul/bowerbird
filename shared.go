@@ -55,8 +55,14 @@ func engine(element string) {
 
 // Compile the results of a Jira API query and save summary and key into a string slice
 func compiler(element string) []string {
-	err := json.Unmarshal(api(jira.ToDo), &query)
-	inspect(err)
+	if element == "premium" {
+		err := json.Unmarshal(api(jira.Review), &query)
+		inspect(err)
+	} else {
+		err := json.Unmarshal(api(jira.ToDo), &query)
+		inspect(err)
+	}
+
 	var candidate []string
 
 	for i := 0; i < len(query.Issues); i++ {
