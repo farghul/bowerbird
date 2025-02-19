@@ -74,6 +74,6 @@ var (
 	plugin     string
 	ticket     string
 	bitbucket  BitBucket
-	variations = []string{"freemius", "premium", "wpackagist", "wpengine"}
+	variations = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
 	jsons      = []string{assets + "jsons/bitbucket.json", assets + "jsons/jira.json", assets + "jsons/nouns.json"}
 )

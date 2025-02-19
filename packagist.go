@@ -16,9 +16,13 @@ func prepare() {
 	execute("-v", "git", "pull")
 }
 
-// Run the appropriate composer require command based on the flag value
+// Run the appropriate composer require command
 func require() {
-	execute("-v", "composer", "require", plugin, "--no-install")
+	if edge() {
+		execute("-v", "composer", "require", plugin, "-W", "--no-install")
+	} else {
+		execute("-v", "composer", "require", plugin, "--no-install")
+	}
 }
 
 // Iterate through the Args array and assign plugin and ticket values

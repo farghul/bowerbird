@@ -91,6 +91,15 @@ func rightplace() {
 	}
 }
 
+// Check for edge cases which require the -W flag
+func edge() bool {
+	found := false
+	if strings.Contains(plugin, "roots/wordpress") {
+		found = true
+	}
+	return found
+}
+
 // Run a terminal command using flags to customize the output
 func execute(variation, task string, args ...string) []byte {
 	osCmd := exec.Command(task, args...)
