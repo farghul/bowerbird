@@ -68,6 +68,7 @@ const (
 )
 
 var (
+	active     int
 	query      JQL
 	jira       Jira
 	ppt        Nouns

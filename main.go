@@ -14,12 +14,15 @@ func main() {
 	case "-h", "--help":
 		help()
 	case "-r", "--run":
+		active = 0
 		serialize()
 		for _, element := range variations {
 			engine(element)
 		}
-		tracking("Pushing to repository")
-		push()
+		if active > 0 {
+			tracking("Pushing to repository")
+			push()
+		}
 	case "-v", "--version":
 		version()
 	case "--zero":

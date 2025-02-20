@@ -45,6 +45,7 @@ func serialize() {
 func engine(element string) {
 	result := compiler(element)
 	if len(result) > 0 {
+		active++
 		rightplace()
 		prepare()
 		packagist(result)
