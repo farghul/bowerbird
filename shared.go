@@ -10,15 +10,15 @@ import (
 )
 
 // Test for an optional flag
-func flags() string {
-	var flag string
+func flag() string {
+	var passed string
 
 	if len(os.Args) == 1 {
-		flag = "--zero"
+		passed = "--zero"
 	} else {
-		flag = os.Args[1]
+		passed = os.Args[1]
 	}
-	return flag
+	return passed
 }
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
@@ -38,19 +38,6 @@ func serialize() {
 			err := json.Unmarshal(data, &ppt)
 			inspect(err)
 		}
-	}
-}
-
-// Execute the main set of program functions
-func engine(element string) {
-	result := compiler(element)
-	if len(result) > 0 {
-		active++
-		rightplace()
-		prepare()
-		packagist(result)
-	} else {
-		journal("No " + element + " update tickets to process.")
 	}
 }
 

@@ -71,6 +71,7 @@ var (
 	active     int
 	query      JQL
 	jira       Jira
+	extra      bool
 	ppt        Nouns
 	plugin     string
 	ticket     string

@@ -8,9 +8,10 @@ import (
 
 // Launch the program and execute the appropriate code
 func main() {
-	var flag string = flags()
+	orders := flag()
+	extra = false
 
-	switch flag {
+	switch orders {
 	case "-h", "--help":
 		help()
 	case "-r", "--run":
