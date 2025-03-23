@@ -12,7 +12,7 @@ pipeline {
         stage("Sync") {
             steps {
                 lock("satis-rebuild-resource") {
-                    dir("/data/scripts/automation/github/bowerbird") {
+                    dir("/data/automation/github/bowerbird") {
                         sh "git pull"
                     }
                 }
@@ -21,8 +21,8 @@ pipeline {
         stage("Build") {
             steps {
                 lock("satis-rebuild-resource") {
-                    dir("/data/scripts/automation/github/bowerbird") {
-                        sh "/data/apps/go/bin/go build -o /data/scripts/automation/programs/bowerbird ."
+                    dir("/data/automation/github/bowerbird") {
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird ."
                     }
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh "/data/scripts/automation/scripts/run_bowerbird.sh"
+                            sh "/data/automation/scripts/run_bowerbird.sh"
                         }
                     }
                 }

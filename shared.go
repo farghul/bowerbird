@@ -23,7 +23,7 @@ func flag() string {
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
-	clearout(assets + "temp/")
+	clearout("/data/automation/temp/")
 	for index, element := range jsons {
 		data, err := os.ReadFile(element)
 		inspect(err)
@@ -70,7 +70,7 @@ func api(criteria string) []byte {
 
 // Confirm the current working directory is correct
 func rightplace() {
-	err := os.Chdir(ppt.WordPress)
+	err := os.Chdir(ppt["wordpress"])
 	inspect(err)
 	var filePath string = "composer-prod.json"
 

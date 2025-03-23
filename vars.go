@@ -63,8 +63,8 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	zero     string = "Not enough arguments supplied -"
-	assets   string = "/data/scripts/automation/assets/"
-	repos    string = "/data/scripts/automation/bitbucket/"
+	assets   string = "/data/automation/assets/"
+	repos    string = "/data/automation/bitbucket/"
 )
 
 var (
@@ -72,10 +72,10 @@ var (
 	query      JQL
 	jira       Jira
 	extra      bool
-	ppt        Nouns
 	plugin     string
 	ticket     string
 	bitbucket  BitBucket
+	ppt        map[string]string
 	variations = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons      = []string{assets + "jsons/bitbucket.json", assets + "jsons/jira.json", assets + "jsons/nouns.json"}
+	jsons      = []string{assets + "bitbucket.json", assets + "jira.json", assets + "nouns.json"}
 )
