@@ -22,7 +22,10 @@ pipeline {
             steps {
                 lock("satis-rebuild-resource") {
                     dir("/data/automation/github/bowerbird") {
-                        sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird ."
+                        sh '''#!/bin/bash
+                        source ~/.bashrc
+                        go build -o /data/automation/bin/bowerbird .
+                        '''
                     }
                 }
             }
