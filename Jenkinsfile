@@ -13,7 +13,11 @@ pipeline {
             steps {
                 lock("satis-rebuild-resource") {
                     dir("/data/automation/github/bowerbird") {
-                        sh "git pull"
+                        sh '''#!/bin/bash
+                        source ~/.bashrc
+                        git fetch --all
+                        git pull
+                        '''
                     }
                 }
             }
