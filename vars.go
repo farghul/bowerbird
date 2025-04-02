@@ -54,17 +54,17 @@ type Satis struct {
 }
 
 const (
-	bv       string = "1.0.0"
-	branch   string = "update/"
-	reset    string = "\033[0m"
-	green    string = "\033[32m"
-	yellow   string = "\033[33m"
-	bgred    string = "\033[41m"
-	bgyellow string = "\033[43m"
-	halt     string = "program halted "
-	zero     string = "Not enough arguments supplied -"
-	assets   string = "/data/automation/assets/"
-	repos    string = "/data/automation/bitbucket/"
+	bv        string = "1.0.0"
+	branch    string = "update/"
+	reset     string = "\033[0m"
+	green     string = "\033[32m"
+	yellow    string = "\033[33m"
+	bgred     string = "\033[41m"
+	bgyellow  string = "\033[43m"
+	halt      string = "program halted "
+	zero      string = "Not enough arguments supplied -"
+	repos     string = "/data/automation/bitbucket/"
+	resources string = "/data/automation/resources/"
 )
 
 var (
@@ -77,5 +77,5 @@ var (
 	bitbucket  BitBucket
 	ppt        map[string]string
 	variations = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons      = []string{assets + "bitbucket.json", assets + "jira.json", assets + "nouns.json"}
+	jsons      = []string{resources + "bitbucket.json", resources + "jira.json", resources + "nouns.json"}
 )
