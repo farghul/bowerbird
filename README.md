@@ -1,6 +1,6 @@
 # Bowerbird
 
-Bowerbird is a WordPress plugin update install tool. It simplifies the process of pulling free updates from [WordPress Packagist](https://repo.packagist.org) or premium updates from a subscription, then pushing them to Git and adding version tags to a private repository like Satis, if needed. Named after a very industrious creature who excels at building.
+Bowerbird is a WordPress plugin update install tool. It simplifies the process of pulling free updates from [WordPress Packagist](https://wpackagist.org "WordPress plugin and theme directories as a Composer repository") or premium updates from a subscription, then pushing them to Git and adding version tags to a private repository like [Satis](https://github.com/composer/satis "A simple static Composer repository generator"), if needed. Named after a very industrious creature who excels at building.
 
 ![Bird](bowerbird.webp)
 
@@ -8,7 +8,7 @@ Bowerbird is a WordPress plugin update install tool. It simplifies the process o
 
 Login information to download the update package. -- ***premium content only*** --
 
-Googles' [Go language](https://go.dev) installed to enable building executables from source code.
+The [Go Programming Language](https://go.dev "Build simple, secure, scalable systems with Go") installed to enable building executables from source code.
 
 ## Build
 
@@ -60,4 +60,4 @@ Flags `-r` and `-w` can accept multiple updates, chain together as many as you l
 
 ## License
 
-Code is distributed under [The Unlicense](https://github.com/farghul/bowerbird/blob/main/LICENSE.md) and is part of the Public Domain.
+Code is distributed under [The Unlicense](https://github.com/farghul/bowerbird/blob/main/LICENSE.md "Unlicense Yourself, Set Your Code Free") and is part of the Public Domain.
