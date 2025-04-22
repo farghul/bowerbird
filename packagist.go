@@ -23,7 +23,7 @@ func prepare() {
 func packagist(flavour []string) {
 	if !extra {
 		tracking("Updating Composer")
-		// execute("-v", "composer", "update", "--no-install")
+		execute("-v", "composer", "update", "--no-install")
 		extra = true
 	}
 	tracking("Installing updates & commiting changes")
