@@ -53,7 +53,7 @@ func compiler(element string) []string {
 
 	var candidate []string
 
-	for i := 0; i < len(query.Issues); i++ {
+	for i := range query.Issues {
 		if strings.Contains(query.Issues[i].Fields.Summary, element) {
 			candidate = append(candidate, query.Issues[i].Fields.Summary)
 			candidate = append(candidate, query.Issues[i].Key)
