@@ -20,14 +20,14 @@ func prepare() {
 }
 
 // A sequential list of tasks run to complete the program
-func packagist(flavour []string) {
+func packagist(habitat []string) {
 	if !extra {
 		tracking("Updating Composer")
 		execute("-v", "composer", "update", "--no-install")
 		extra = true
 	}
 	tracking("Installing updates & commiting changes")
-	sift(flavour)
+	sift(habitat)
 	tracking("Writing to log file")
 	journal(ticket + " " + plugin)
 }

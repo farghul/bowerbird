@@ -17,7 +17,7 @@ func main() {
 	case "-r", "--run":
 		active = 0
 		serialize()
-		for _, element := range variations {
+		for _, element := range brands {
 			engine(element)
 		}
 		if active > 0 {

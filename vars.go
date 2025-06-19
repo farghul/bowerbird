@@ -41,8 +41,8 @@ type JQL struct {
 	} `json:"issues"`
 }
 
-// Nouns builds a list of jira tokens and api addresses
-type Nouns struct {
+// Definitions builds a list of jira tokens and api addresses
+type Definitions struct {
 	WordPress string `json:"wordpress"`
 }
 
@@ -54,28 +54,27 @@ type Satis struct {
 }
 
 const (
-	bv        string = "1.0.0"
-	branch    string = "update/"
-	reset     string = "\033[0m"
-	green     string = "\033[32m"
-	yellow    string = "\033[33m"
-	bgred     string = "\033[41m"
-	bgyellow  string = "\033[43m"
-	halt      string = "program halted "
-	zero      string = "Not enough arguments supplied -"
-	repos     string = "/data/automation/bitbucket/"
-	resources string = "/data/automation/resources/"
+	bv       string = "1.0.0"
+	branch   string = "update/"
+	reset    string = "\033[0m"
+	green    string = "\033[32m"
+	yellow   string = "\033[33m"
+	bgred    string = "\033[41m"
+	bgyellow string = "\033[43m"
+	halt     string = "program halted "
+	repos    string = "/data/automation/bitbucket/"
+	zero     string = "Not enough arguments supplied -"
 )
 
 var (
-	active     int
-	query      JQL
-	jira       Jira
-	extra      bool
-	plugin     string
-	ticket     string
-	bitbucket  BitBucket
-	ppt        map[string]string
-	variations = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons      = []string{resources + "bitbucket.json", resources + "jira.json", resources + "nouns.json"}
+	active    int
+	query     JQL
+	jira      Jira
+	extra     bool
+	plugin    string
+	ticket    string
+	bitbucket BitBucket
+	ppt       map[string]string
+	brands    = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
+	jsons     = []string{repos + "desso-automation-conf/bitbucket.json", repos + "desso-automation-conf/jira.json", repos + "desso-automation-conf/definitions.json"}
 )
