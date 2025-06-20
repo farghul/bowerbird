@@ -1,17 +1,13 @@
 package main
 
-// BitBucket builds a list of BitBucket tokens and api addresses
-type BitBucket struct {
-	Email string `json:"email"`
-	Token string `json:"token"`
-	URL   string `json:"url"`
-	UUID  string `json:"uuid"`
+// Definitions holds the path to the WordPress repository
+type Definitions struct {
+	WordPress string `json:"wordpress"`
 }
 
-// Jira builds a list of jira tokens and api addresses
+// Jira builds a list of jira api addresses
 type Jira struct {
 	Review string `json:"review"`
-	Token  string `json:"token"`
 	ToDo   string `json:"todo"`
 	URL    string `json:"url"`
 }
@@ -41,16 +37,16 @@ type JQL struct {
 	} `json:"issues"`
 }
 
-// Definitions builds a list of jira tokens and api addresses
-type Definitions struct {
-	WordPress string `json:"wordpress"`
-}
-
 // Satis structure captures the contents of the composer.json file for typical premium plugins
 type Satis struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
 	Type    string `json:"type"`
+}
+
+// Tokens builds a list of jira tokens and api addresses
+type Tokens struct {
+	Jira string `json:"jira"`
 }
 
 const (
@@ -62,19 +58,18 @@ const (
 	bgred    string = "\033[41m"
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
-	repos    string = "/data/automation/bitbucket/"
-	zero     string = "Not enough arguments supplied -"
+	repo     string = "/data/automation/bitbucket/desso-automation-conf/"
 )
 
 var (
-	active    int
-	query     JQL
-	jira      Jira
-	extra     bool
-	plugin    string
-	ticket    string
-	bitbucket BitBucket
-	ppt       map[string]string
-	brands    = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons     = []string{repos + "desso-automation-conf/bitbucket.json", repos + "desso-automation-conf/jira.json", repos + "desso-automation-conf/definitions.json"}
+	active      int
+	query       JQL
+	jira        Jira
+	extra       bool
+	plugin      string
+	ticket      string
+	token       Tokens
+	definitions Definitions
+	brands      = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
+	jsons       = []string{repo + "definitions.json", repo + "jira.json", "/data/automation/tokens/tokens.json"}
 )

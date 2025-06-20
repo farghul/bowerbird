@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // Execute the main set of program functions
 func engine(element string) {
 	result := compiler(element)
@@ -9,7 +11,7 @@ func engine(element string) {
 		prepare()
 		packagist(result)
 	} else {
-		journal("No " + element + " update tickets to process.")
+		fmt.Println("No " + element + " update tickets to process.")
 	}
 }
 
@@ -28,8 +30,6 @@ func packagist(habitat []string) {
 	}
 	tracking("Installing updates & commiting changes")
 	sift(habitat)
-	tracking("Writing to log file")
-	journal(ticket + " " + plugin)
 }
 
 // Iterate through the Args array and assign plugin and ticket values

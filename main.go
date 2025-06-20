@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 )
 
@@ -32,14 +31,6 @@ func main() {
 		alert("Unknown argument(s) -")
 		help()
 	}
-}
-
-// Enter a record to the log file
-func journal(message string) {
-	file, err := os.OpenFile("/data/automation/logs/bowerbird.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	inspect(err)
-	log.SetOutput(file)
-	fmt.Println(message)
 }
 
 // Print a colourized error message

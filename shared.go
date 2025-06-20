@@ -29,13 +29,13 @@ func serialize() {
 		inspect(err)
 		switch index {
 		case 0:
-			err := json.Unmarshal(data, &bitbucket)
+			err := json.Unmarshal(data, &definitions)
 			inspect(err)
 		case 1:
 			err := json.Unmarshal(data, &jira)
 			inspect(err)
 		case 2:
-			err := json.Unmarshal(data, &ppt)
+			err := json.Unmarshal(data, &token)
 			inspect(err)
 		}
 	}
@@ -64,13 +64,13 @@ func compiler(element string) []string {
 
 // Search the Jira API
 func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", jira.URL+"search?jql="+criteria, "--header", "Authorization: Basic "+jira.Token, "--header", "Accept: application/json")
+	result := execute("-c", "curl", "--request", "GET", "--url", jira.URL+"search?jql="+criteria, "--header", "Authorization: Basic "+token.Jira, "--header", "Accept: application/json")
 	return result
 }
 
 // Confirm the current working directory is correct
 func rightplace() {
-	err := os.Chdir(ppt["wordpress"])
+	err := os.Chdir(definitions.WordPress)
 	inspect(err)
 	var filePath string = "composer-prod.json"
 
