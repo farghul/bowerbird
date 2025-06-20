@@ -37,7 +37,7 @@ pipeline {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
                             dir("/data/automation/bitbucket/desso-automation-conf/scripts/updates") {
-                                sh "bowerbird.sh"
+                                sh "./bowerbird.sh"
                             }
                         }
                     }
