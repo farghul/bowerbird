@@ -71,5 +71,5 @@ var (
 	token       Tokens
 	definitions Definitions
 	brands      = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons       = []string{repo + "definitions.json", repo + "jira.json", "/data/automation/tokens/tokens.json"}
+	jsons       = []string{repo + "jsons/definitions.json", repo + "jsons/jira.json", "/data/automation/tokens/tokens.json"}
 )
