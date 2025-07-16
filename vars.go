@@ -58,6 +58,7 @@ const (
 	bgred    string = "\033[41m"
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
+	tokens   string = "/data/automation/tokens/"
 	repo     string = "/data/automation/bitbucket/desso-automation-conf/"
 )
 
@@ -71,5 +72,5 @@ var (
 	token       Tokens
 	definitions Definitions
 	brands      = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons       = []string{repo + "jsons/definitions.json", repo + "jsons/jira.json", "/data/automation/tokens/tokens.json"}
+	jsons       = []string{repo + "jsons/definitions.json", repo + "jsons/jira.json", tokens + "tokens.json"}
 )
