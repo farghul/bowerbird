@@ -9,39 +9,38 @@ pipeline {
         )
     }
     stages {
-        stage("Pull Changes") {
+        stage('Clean WS') {
             steps {
-                lock("satis-rebuild-resource") {
-                    dir("/data/automation/github/bowerbird") {
-                        sh '''#!/bin/bash
-                        source ~/.bashrc
-                        git fetch --all
-                        git switch main
-                        git pull
-                        '''
-                    }
-                }
+                cleanWs()
+            }
+        }
+        stage("Checkout Bowerbird") {
+            steps {
+                checkout scmGit(
+                    branches: [[name: 'main']],
+                    userRemoteConfigs: [[url: 'https://github.com/farghul/bowerbird.git']]
+                )
             }
         }
         stage("Build Bowerbird") {
             steps {
-                lock("satis-rebuild-resource") {
-                    dir("/data/automation/github/bowerbird") {
-                        sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird"
-                    }
+                script {
+                    sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird"
                 }
             }
         }
-        stage("Run Bowerbird") {
+        stage("Checkout DAC") {
             steps {
-                lock("satis-rebuild-resource") {
-                    timeout(time: 5, unit: "MINUTES") {
-                        retry(2) {
-                            dir("/data/automation/bitbucket/desso-automation-conf/scripts/plugin") {
-                                sh "./bowerbird.sh"
-                            }
-                        }
-                    }
+                checkout scmGit(
+                    branches: [[name: 'main']],
+                    userRemoteConfigs: [[credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
+                )
+            }
+        }
+        stage('Run Bowerbird') {
+            steps {
+                script {
+                    sh './scripts/plugin/bowerbird.sh'
                 }
             }
         }
