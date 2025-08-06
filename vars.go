@@ -59,7 +59,7 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	tokens   string = "/data/automation/tokens/"
-	repo     string = "/data/automation/bitbucket/desso-automation-conf/"
+	repo     string = "/data/automation/checkouts/desso-automation-conf/"
 )
 
 var (

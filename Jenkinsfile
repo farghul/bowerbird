@@ -8,40 +8,59 @@ pipeline {
             numToKeepStr: "10"
         )
     }
+    triggers {
+        cron "H 9 * * 3"
+    }
     stages {
-        stage('Clean WS') {
+        stage("Empty_Folder") {
             steps {
-                cleanWs()
-            }
-        }
-        stage("Checkout Bowerbird") {
-            steps {
-                checkout scmGit(
-                    branches: [[name: 'main']],
-                    userRemoteConfigs: [[url: 'https://github.com/farghul/bowerbird.git']]
-                )
-            }
-        }
-        stage("Build Bowerbird") {
-            steps {
-                script {
-                    sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird"
+                dir('/data/automation/checkouts'){
+                    script {
+                        deleteDir()
+                    }
                 }
             }
         }
-        stage("Checkout DAC") {
-            steps {
-                checkout scmGit(
-                    branches: [[name: 'main']],
-                    userRemoteConfigs: [[credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
-                )
+        stage('Checkout_Bowerbird'){
+            steps{
+                dir('/data/automation/checkouts/bowerbird'){
+                    git url: 'https://github.com/farghul/bowerbird.git' , branch: 'main'
+                }
             }
         }
-        stage('Run Bowerbird') {
+        stage('Build_Bowerbird') {
             steps {
-                script {
-                    sh './scripts/plugin/bowerbird.sh'
+                dir('/data/automation/checkouts/bowerbird'){
+                    script {
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird"
+                    }
                 }
+            }
+        }
+        stage("Checkout_DAC") {
+            steps{
+                dir('/data/automation/checkouts/dac'){
+                    git credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git', branch: 'main'
+                }
+            }
+        }
+        stage('Run_Bowerbird') {
+            steps {
+                dir('/data/automation/checkouts/dac'){
+                    script {
+                        sh './scripts/plugin/bowerbird.sh'
+                    }
+                }
+            }
+        }
+        post {
+            always {
+                cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'], [pattern: '.propsfile', type: 'EXCLUDE']]
+                )
             }
         }
     }
