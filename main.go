@@ -1,3 +1,13 @@
+/*
+ ____                         ____  _         _
+| __ )  _____      _____ _ __| __ )(_)_ __ __| |
+|  _ \ / _ \ \ /\ / / _ \ '__|  _ \| | '__/ _` |
+| |_) | (_) \ V  V /  __/ |  | |_) | | | | (_| |
+|____/ \___/ \_/\_/ \___|_|  |____/|_|_|  \__,_|
+A WordPress plugin update install tool
+Created by Byron Stuike
+*/
+
 package main
 
 import (

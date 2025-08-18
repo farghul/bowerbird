@@ -64,7 +64,7 @@ func compiler(element string) []string {
 
 // Search the Jira API
 func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", jira.URL+"search?jql="+criteria, "--header", "Authorization: Basic "+token.Jira, "--header", "Accept: application/json")
+	result := execute("-c", "curl", "--request", "GET", "--url", jira.URL+"search/jql?jql="+criteria, "--header", "Authorization: Basic "+token.Jira, "--header", "Accept: application/json")
 	return result
 }
 
