@@ -12,7 +12,7 @@ pipeline {
         cron "H 9 * * 3"
     }
     stages {
-        stage("Empty_Folder") {
+        stage("Clear") {
             steps {
                 dir('/data/automation/checkouts'){
                     script {
@@ -21,14 +21,17 @@ pipeline {
                 }
             }
         }
-        stage('Checkout_Bowerbird'){
+        stage("Checkouts"){
             steps{
-                dir('/data/automation/checkouts/bowerbird'){
-                    git url: 'https://github.com/farghul/bowerbird.git' , branch: 'main'
+                dir("/data/automation/checkouts/bowerbird"){
+                    git url: "https://github.com/farghul/bowerbird.git", branch: "main"
+                }
+                dir("/data/automation/checkouts/dac"){
+                    git credentialsId: "DES-Project", url: "https://bitbucket.org/bc-gov/desso-automation-conf.git", branch: "main"
                 }
             }
         }
-        stage('Build_Bowerbird') {
+        stage('Build') {
             steps {
                 dir('/data/automation/checkouts/bowerbird'){
                     script {
@@ -37,18 +40,11 @@ pipeline {
                 }
             }
         }
-        stage("Checkout_DAC") {
-            steps{
-                dir('/data/automation/checkouts/dac'){
-                    git credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git', branch: 'main'
-                }
-            }
-        }
-        stage('Run_Bowerbird') {
+        stage('Run') {
             steps {
-                dir('/data/automation/checkouts/dac'){
+                dir("/data/automation/checkouts/dac/scripts/plugin"){
                     script {
-                        sh './scripts/plugin/bowerbird.sh'
+                        sh "./bowerbird.sh"
                     }
                 }
             }
