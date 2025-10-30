@@ -6,6 +6,7 @@
 |____/ \___/ \_/\_/ \___|_|  |____/|_|_|  \__,_|
 A WordPress plugin update install tool
 Created by Byron Stuike
+
 */
 
 package main

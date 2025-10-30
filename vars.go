@@ -51,7 +51,6 @@ type Tokens struct {
 
 const (
 	bv       string = "1.0.0"
-	branch   string = "update/"
 	reset    string = "\033[0m"
 	green    string = "\033[32m"
 	yellow   string = "\033[33m"
@@ -59,7 +58,7 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	tokens   string = "/data/automation/tokens/"
-	repo     string = "/data/automation/checkouts/desso-automation-conf/"
+	repo     string = "/data/automation/checkouts/dac/"
 )
 
 var (
