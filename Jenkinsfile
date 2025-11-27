@@ -2,9 +2,9 @@ pipeline {
     agent { label "cactuar && deploy" }
     options {
         buildDiscarder logRotator(
-            artifactDaysToKeepStr: "28",
-            artifactNumToKeepStr: "5",
-            daysToKeepStr: "56",
+            artifactDaysToKeepStr: "",
+            artifactNumToKeepStr: "10",
+            daysToKeepStr: "",
             numToKeepStr: "10"
         )
     }
@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage("Clear") {
             steps {
-                dir('/data/automation/checkouts'){
+                dir("/data/automation/checkouts"){
                     script {
                         deleteDir()
                     }
@@ -31,18 +31,18 @@ pipeline {
                 }
             }
         }
-        stage('Build') {
+        stage("Build") {
             steps {
-                dir('/data/automation/checkouts/bowerbird'){
+                dir("/data/automation/checkouts/bowerbird"){
                     script {
-                        sh "go build -o /data/automation/bin/bowerbird"
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird"
                     }
                 }
             }
         }
-        stage('Run') {
+        stage("Run") {
             steps {
-                dir("/data/automation/checkouts/dac/scripts/plugin"){
+                dir("/data/automation/checkouts/bowerbird"){
                     script {
                         sh "./bowerbird.sh"
                     }
