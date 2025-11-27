@@ -35,7 +35,7 @@ pipeline {
             steps {
                 dir('/data/automation/checkouts/bowerbird'){
                     script {
-                        sh "/data/apps/go/bin/go build -o /data/automation/bin/bowerbird"
+                        sh "go build -o /data/automation/bin/bowerbird"
                     }
                 }
             }
