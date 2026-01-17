@@ -25,13 +25,7 @@ Thumbs.db
 *~
 
 # Exclude specified directories
-.bundle/
-.yardoc/
-_yardoc/
-beta/
-doc/
 local/
-rdoc/
 temp/
 
 # Exclude environment files
@@ -53,9 +47,6 @@ go.work.sum
 *.tar.gz
 *.war
 *.zip
-
-# Exclude project specific files
-main.yaml
 
 # Exclude Recycle Bin used on file shares
 $RECYCLE.BIN/

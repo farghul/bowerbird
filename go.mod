@@ -1,3 +1,3 @@
 module github.com/farghul/bowerbird
 
-go 1.24
+go 1.25
