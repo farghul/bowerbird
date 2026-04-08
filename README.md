@@ -26,7 +26,6 @@ Inside of your Bowerbird project, you'll see the following folders and files:
 │   ├── tokens.json
 ├── bowerbird.webp
 ├── go.mod
-├── Jenkisfile
 ├── LICENSE.md
 ├── main.go
 ├── packagist.go
@@ -37,10 +36,11 @@ Inside of your Bowerbird project, you'll see the following folders and files:
 
 ## 🚧 Build
 
-Before building the application, change the value of the `resources` constant to reflect your environment:
+Before building the application, change the value of the `tokens` and `meta` constants to reflect your environment:
 
 ``` go
-resources string = "/data/automation/resources/"
+tokens   string = "/data/automation/tokens/"
+meta     string = "/data/automation/jsons/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:

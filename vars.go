@@ -58,7 +58,7 @@ const (
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
 	tokens   string = "/data/automation/tokens/"
-	repo     string = "/data/automation/checkouts/dac/"
+	meta     string = "/data/automation/jsons/"
 )
 
 var (
@@ -71,5 +71,5 @@ var (
 	token       Tokens
 	definitions Definitions
 	brands      = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons       = []string{repo + "jsons/definitions.json", repo + "jsons/jira.json", tokens + "tokens.json"}
+	jsons       = []string{meta + "definitions.json", meta + "jira.json", tokens + "tokens.json"}
 )

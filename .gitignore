@@ -26,6 +26,7 @@ Thumbs.db
 
 # Exclude specified directories
 local/
+scripts/
 temp/
 
 # Exclude environment files
