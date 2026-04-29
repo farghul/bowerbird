@@ -51,12 +51,13 @@ func changedir() {
 func prepare() {
 	tracking("Preparing Branch")
 	var branch string
-	if flag == "-p" {
+	switch flag {
+	case "-p":
 		branch = "main"
-	} else if flag == "-r" {
-		branch = "master"
-	} else {
+	case "-r":
 		branch = "development"
+	default:
+		branch = "master"
 	}
 	execute("git", "switch", branch)
 	execute("git", "pull")
