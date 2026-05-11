@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
 	"os"
 	"os/exec"
 	"strings"
@@ -23,19 +26,16 @@ func flag() string {
 
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
-	clearout("/data/automation/temp/")
+	clearout(temp)
 	for index, element := range jsons {
 		data, err := os.ReadFile(element)
 		inspect(err)
 		switch index {
 		case 0:
-			err := json.Unmarshal(data, &definitions)
+			err := json.Unmarshal(data, &defs)
 			inspect(err)
 		case 1:
 			err := json.Unmarshal(data, &jira)
-			inspect(err)
-		case 2:
-			err := json.Unmarshal(data, &token)
 			inspect(err)
 		}
 	}
@@ -44,11 +44,13 @@ func serialize() {
 // Compile the results of a Jira API query and save summary and key into a string slice
 func compiler(element string) []string {
 	if element == "premium" {
-		err := json.Unmarshal(api(jira.Review), &query)
+		data, err := api(jira.Basic + jira.Review)
 		inspect(err)
+		json.Unmarshal(data, &query)
 	} else {
-		err := json.Unmarshal(api(jira.ToDo), &query)
+		data, err := api(jira.Basic + jira.ToDo)
 		inspect(err)
+		json.Unmarshal(data, &query)
 	}
 
 	var candidate []string
@@ -62,15 +64,43 @@ func compiler(element string) []string {
 	return candidate
 }
 
-// Search the Jira API
-func api(criteria string) []byte {
-	result := execute("-c", "curl", "--request", "GET", "--url", jira.URL+"search/jql?jql="+criteria, "--header", "Authorization: Basic "+token.Jira, "--header", "Accept: application/json")
-	return result
+func api(criteria string) ([]byte, error) {
+	baseURL := jira.URL + "search/jql"
+	params := url.Values{}
+	params.Add("jql", criteria)
+
+	fullURL := baseURL + "?" + "jql=" + criteria
+
+	// Create request
+	req, err := http.NewRequest("GET", fullURL, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// Set headers
+	req.Header.Set("Authorization", "Basic "+jira.Token)
+	req.Header.Set("Accept", "application/json")
+
+	// Execute request
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	// Read response
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
 }
 
 // Confirm the current working directory is correct
 func rightplace() {
-	err := os.Chdir(definitions.WordPress)
+	err := os.Chdir(defs.WordPress)
 	inspect(err)
 	var filePath string = "composer-prod.json"
 

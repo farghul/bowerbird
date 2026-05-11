@@ -5,10 +5,13 @@ type Definitions struct {
 	WordPress string `json:"wordpress"`
 }
 
-// Jira builds a list of jira api addresses
+// Jira builds a list of Jira API addresses
 type Jira struct {
 	Review string `json:"review"`
+	Search string `json:"search"`
+	Token  string `json:"token"`
 	ToDo   string `json:"todo"`
+	Basic  string `json:"basic"`
 	URL    string `json:"url"`
 }
 
@@ -18,20 +21,6 @@ type JQL struct {
 		ID     string `json:"id"`
 		Key    string `json:"key"`
 		Fields struct {
-			Status struct {
-				Self           string `json:"self"`
-				Description    string `json:"description"`
-				IconURL        string `json:"iconUrl"`
-				Name           string `json:"name"`
-				ID             string `json:"id"`
-				StatusCategory struct {
-					Self      string `json:"self"`
-					ID        int    `json:"id"`
-					Key       string `json:"key"`
-					ColorName string `json:"colorName"`
-					Name      string `json:"name"`
-				} `json:"statusCategory"`
-			} `json:"status"`
 			Summary string `json:"summary"`
 		} `json:"fields"`
 	} `json:"issues"`
@@ -44,11 +33,6 @@ type Satis struct {
 	Type    string `json:"type"`
 }
 
-// Tokens builds a list of jira tokens and api addresses
-type Tokens struct {
-	Jira string `json:"jira"`
-}
-
 const (
 	bv       string = "1.0.0"
 	reset    string = "\033[0m"
@@ -57,19 +41,18 @@ const (
 	bgred    string = "\033[41m"
 	bgyellow string = "\033[43m"
 	halt     string = "program halted "
-	tokens   string = "/data/automation/tokens/"
 	meta     string = "/data/automation/jsons/"
+	temp     string = "/data/automation/temp/"
 )
 
 var (
-	active      int
-	query       JQL
-	jira        Jira
-	extra       bool
-	plugin      string
-	ticket      string
-	token       Tokens
-	definitions Definitions
-	brands      = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons       = []string{meta + "definitions.json", meta + "jira.json", tokens + "tokens.json"}
+	active int
+	query  JQL
+	jira   Jira
+	extra  bool
+	plugin string
+	ticket string
+	defs   Definitions
+	brands = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
+	jsons  = []string{meta + "definitions.json", meta + "jira.json"}
 )
