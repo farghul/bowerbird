@@ -3,19 +3,15 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
-	"os/exec"
 	"strings"
 )
 
 // Test for an optional flag
 func flag() string {
 	var passed string
-
 	if len(os.Args) == 1 {
 		passed = "--zero"
 	} else {
@@ -43,18 +39,19 @@ func serialize() {
 
 // Compile the results of a Jira API query and save summary and key into a string slice
 func compiler(element string) []string {
+	var data []byte
+	var err error
 	if element == "premium" {
-		data, err := api(jira.Basic + jira.Review)
+		data, err = api(jira.Basic + jira.Review)
 		inspect(err)
-		json.Unmarshal(data, &query)
 	} else {
-		data, err := api(jira.Basic + jira.ToDo)
+		data, err = api(jira.Basic + jira.ToDo)
 		inspect(err)
-		json.Unmarshal(data, &query)
 	}
+	err = json.Unmarshal(data, &query)
+	inspect(err)
 
 	var candidate []string
-
 	for i := range query.Issues {
 		if strings.Contains(query.Issues[i].Fields.Summary, element) {
 			candidate = append(candidate, query.Issues[i].Fields.Summary)
@@ -65,11 +62,9 @@ func compiler(element string) []string {
 }
 
 func api(criteria string) ([]byte, error) {
-	baseURL := jira.URL + "search/jql"
-	params := url.Values{}
-	params.Add("jql", criteria)
+	baseURL := jira.URL + "search/jql?jql="
 
-	fullURL := baseURL + "?" + "jql=" + criteria
+	fullURL := baseURL + criteria
 
 	// Create request
 	req, err := http.NewRequest("GET", fullURL, nil)
@@ -94,7 +89,6 @@ func api(criteria string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	return body, nil
 }
 
@@ -116,63 +110,4 @@ func edge() bool {
 		found = true
 	}
 	return found
-}
-
-// Run a terminal command using flags to customize the output
-func execute(variation, task string, args ...string) []byte {
-	osCmd := exec.Command(task, args...)
-	switch variation {
-	case "-c":
-		result, err := osCmd.Output()
-		inspect(err)
-		return result
-	case "-v":
-		osCmd.Stdout = os.Stdout
-		osCmd.Stderr = os.Stderr
-		err := osCmd.Run()
-		inspect(err)
-	}
-	return nil
-}
-
-// Check for errors, print the result if found
-func inspect(err error) {
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-}
-
-// Empty the contents a folder
-func clearout(path string) {
-	list := ls(path)
-	for _, file := range list {
-		sweep(path + file)
-	}
-}
-
-// Remove files or directories
-func sweep(cut ...string) {
-	inspect(os.RemoveAll(cut[0.]))
-}
-
-// Record a list of files in a folder
-func ls(folder string) []string {
-	var content []string
-	dir := expose(folder)
-
-	files, err := dir.ReadDir(0)
-	inspect(err)
-
-	for _, f := range files {
-		content = append(content, f.Name())
-	}
-	return content
-}
-
-// Open a file for reading and return an os.File variable
-func expose(file string) *os.File {
-	outcome, err := os.Open(file)
-	inspect(err)
-	return outcome
 }

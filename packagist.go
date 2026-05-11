@@ -17,15 +17,15 @@ func engine(element string) {
 
 // Switch to the development branch, and pull any changes
 func prepare() {
-	execute("-v", "git", "checkout", "development")
-	execute("-v", "git", "pull")
+	execute("git", []string{"checkout", "development"}, ExecOptions{Stream: true})
+	execute("git", []string{"pull"}, ExecOptions{Stream: true})
 }
 
 // A sequential list of tasks run to complete the program
 func packagist(habitat []string) {
 	if !extra {
 		tracking("Updating Composer")
-		execute("-v", "composer", "update", "--no-install")
+		execute("composer", []string{"update", "--no-install"}, ExecOptions{Stream: true})
 		extra = true
 	}
 	tracking("Installing updates & commiting changes")
@@ -46,19 +46,19 @@ func sift(box []string) {
 // Run the appropriate composer require command
 func require() {
 	if edge() {
-		execute("-v", "composer", "require", plugin, "-W", "--no-install")
+		execute("composer", []string{"require", plugin, "-W", "--no-install"}, ExecOptions{Stream: true})
 	} else {
-		execute("-v", "composer", "require", plugin, "--no-install")
+		execute("composer", []string{"require", plugin, "--no-install"}, ExecOptions{Stream: true})
 	}
 }
 
 // Add and commit the update
 func commit() {
-	execute("-v", "git", "add", ".")
-	execute("-v", "git", "commit", "-m", ticket, "-m", "Install "+plugin)
+	execute("git", []string{"add", "."}, ExecOptions{Stream: true})
+	execute("git", []string{"commit", "-m", ticket, "-m", "Install " + plugin}, ExecOptions{Stream: true})
 }
 
 // Push modified content to the git repository
 func push() {
-	execute("-v", "git", "push")
+	execute("git", []string{"push"}, ExecOptions{Stream: true})
 }
