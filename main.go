@@ -1,14 +1,3 @@
-/*
- ____                         ____  _         _
-| __ )  _____      _____ _ __| __ )(_)_ __ __| |
-|  _ \ / _ \ \ /\ / / _ \ '__|  _ \| | '__/ _` |
-| |_) | (_) \ V  V /  __/ |  | |_) | | | | (_| |
-|____/ \___/ \_/\_/ \___|_|  |____/|_|_|  \__,_|
-A WordPress plugin update install tool
-Created by Byron Stuike
-
-*/
-
 package main
 
 import (
@@ -16,64 +5,78 @@ import (
 	"os"
 )
 
-// Launch the program and execute the appropriate code
+// Launch the program and execute as directed by the supplied flag
 func main() {
 	orders := flag()
 	extra = false
+	logo()
 
 	switch orders {
 	case "-h", "--help":
 		help()
 	case "-r", "--run":
+		credits()
 		active = 0
 		serialize()
 		for _, element := range brands {
 			engine(element)
 		}
 		if active > 0 {
-			tracking("Pushing to repository")
+			inform("Pushing to repository")
 			push()
 		}
 	case "-v", "--version":
-		version()
 	case "--zero":
-		alert("No flag detected -")
+		alert("No flag detected - ")
 	default:
-		alert("Unknown argument(s) -")
-		help()
+		alert("Unknown argument(s) - ")
 	}
+}
+
+// Provide and highlight an informational message
+func inform(message string) {
+	Yellow.Printf("%s", "** ")
+	fmt.Print(message)
+	Yellow.Println(" **")
 }
 
 // Print a colourized error message
 func alert(message string) {
-	fmt.Println("\n", bgred, message, halt, reset)
-	fmt.Println(bgyellow, "Use -h for more detailed help information ")
+	Red.Printf("\n%s", "Error: ")
+	fmt.Printf("%s", message)
+	BGRed.Println(halt)
+	inform("Use -h to display help information")
 	os.Exit(0)
-}
-
-// Provide and highlight informational messages
-func tracking(message string) {
-	fmt.Println(yellow)
-	fmt.Println("**", reset, message, yellow, "**", reset)
-}
-
-// Print program version number
-func version() {
-	fmt.Println("\n", yellow+"Bowerbird", green+bv, reset)
 }
 
 // Print help information for using the program
 func help() {
-	fmt.Println(yellow, "\nUsage:", reset)
+	Yellow.Println("\nUsage:")
 	fmt.Println("  [program] [flag]")
-	fmt.Println(yellow, "\nOperational Flags:")
-	fmt.Println(green, " -h, --help", reset, "      Help information")
-	fmt.Println(green, " -r, --run", reset, "       Run Program")
-	fmt.Println(green, " -v, --version", reset, "   Display program version")
-	fmt.Println(yellow, "\nExample:", reset)
-	fmt.Println("   bowerbird -r")
-	fmt.Println(yellow, "\nHelp:", reset)
+	Yellow.Println("\nOperational Flags:")
+	Green.Printf("%s", "  -h, --help")
+	fmt.Println("		Help Information")
+	Green.Printf("%s", "  -r, --run")
+	fmt.Println("		Run Program")
+	Green.Printf("%s", "  -v, --version")
+	fmt.Println("		Display Program Version")
+	Yellow.Println("\nExample:")
+	fmt.Println("  Adding your path to file if necessary, run:")
+	Green.Printf("%s", "    bowerbird -r")
+	Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
-	fmt.Println(green, "   https://github.com/farghul/bowerbird.git")
-	fmt.Println(reset)
+	Green.Println("    https://github.com/farghul/bowerbird.git")
+}
+
+func logo() {
+	Orange.Println("▗▄▄▖  ▗▄▖ ▗▖ ▗▖▗▄▄▄▖▗▄▄▖ ▗▄▄▖ ▗▄▄▄▖▗▄▄▖ ▗▄▄▄  ")
+	Orange.Println("▐▌ ▐▌▐▌ ▐▌▐▌ ▐▌▐▌   ▐▌ ▐▌▐▌ ▐▌  █  ▐▌ ▐▌▐▌  █ ")
+	Orange.Println("▐▛▀▚▖▐▌ ▐▌▐▌ ▐▌▐▛▀▀▘▐▛▀▚▖▐▛▀▚▖  █  ▐▛▀▚▖▐▌  █ ")
+	Orange.Println("▐▙▄▞▘▝▚▄▞▘▐▙█▟▌▐▙▄▄▖▐▌ ▐▌▐▙▄▞▘▗▄█▄▖▐▌ ▐▌▐▙▄▄▀ ")
+	Orange.Println(bv)
+}
+
+func credits() {
+	fmt.Println("\nAn install tool for WordPress plugins")
+	fmt.Println("Created by Byron Stuike")
 }

@@ -24,11 +24,11 @@ func prepare() {
 // A sequential list of tasks run to complete the program
 func packagist(habitat []string) {
 	if !extra {
-		tracking("Updating Composer")
+		inform("Updating Composer")
 		execute("composer", []string{"update", "--no-install"}, ExecOptions{Stream: true})
 		extra = true
 	}
-	tracking("Installing updates & commiting changes")
+	inform("Installing updates & commiting changes")
 	sift(habitat)
 }
 

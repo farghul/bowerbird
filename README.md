@@ -23,24 +23,25 @@ Inside of your Bowerbird project, you'll see the following folders and files:
 ├── jsons/
 │   ├── definitions.json
 │   ├── jira.json
-│   ├── tokens.json
+├── .gitignore
 ├── bowerbird.webp
 ├── go.mod
 ├── LICENSE.md
 ├── main.go
 ├── packagist.go
 ├── README.md
-├── shared.go
+├── tasks.go
+├── tools.go
 └── vars.go
 ```
 
 ## 🚧 Build
 
-Before building the application, change the value of the `tokens` and `meta` constants to reflect your environment:
+Before building the application, change the value of the `meta` and `temp` constants to reflect your environment:
 
 ``` go
-tokens   string = "/data/automation/tokens/"
 meta     string = "/data/automation/jsons/"
+temp     string = "/data/automation/temp/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:

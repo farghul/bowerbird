@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -49,6 +50,16 @@ func inspect(err error) {
 		log.Fatal(err)
 		return
 	}
+}
+
+// Println function for colourized text
+func (c Color) Println(text string) {
+	fmt.Println(string(c) + text + Reset)
+}
+
+// Printf function for colourized text
+func (c Color) Printf(format string, a ...any) {
+	fmt.Printf(string(c)+format+Reset, a...)
 }
 
 // Empty the contents a folder
