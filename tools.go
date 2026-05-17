@@ -27,23 +27,6 @@ func execute(task string, args []string, opts ExecOptions) ([]byte, error) {
 	return cmd.CombinedOutput()
 }
 
-// Run a terminal command using flags to customize the output
-func executor(variation, task string, args ...string) []byte {
-	osCmd := exec.Command(task, args...)
-	switch variation {
-	case "-c":
-		result, err := osCmd.Output()
-		inspect(err)
-		return result
-	case "-v":
-		osCmd.Stdout = os.Stdout
-		osCmd.Stderr = os.Stderr
-		err := osCmd.Run()
-		inspect(err)
-	}
-	return nil
-}
-
 // Check for errors, print the result if found
 func inspect(err error) {
 	if err != nil {
