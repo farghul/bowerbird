@@ -57,7 +57,7 @@ func prepare() {
 	case "-r":
 		branch = "development"
 	default:
-		branch = "master"
+		branch = "development"
 	}
 	execute("git", "switch", branch)
 	execute("git", "pull")
