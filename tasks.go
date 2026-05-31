@@ -13,7 +13,7 @@ import (
 func flag() string {
 	var passed string
 	if len(os.Args) == 1 {
-		passed = "--zero"
+		passed = "--update"
 	} else {
 		passed = os.Args[1]
 	}

@@ -14,7 +14,7 @@ func main() {
 	switch orders {
 	case "-h", "--help":
 		help()
-	case "-r", "--run":
+	case "-u", "--update":
 		credits()
 		active = 0
 		serialize()
@@ -26,8 +26,6 @@ func main() {
 			push()
 		}
 	case "-v", "--version":
-	case "--zero":
-		alert("No flag detected - ")
 	default:
 		alert("Unknown argument(s) - ")
 	}
@@ -52,17 +50,15 @@ func alert(message string) {
 // Print help information for using the program
 func help() {
 	Yellow.Println("\nUsage:")
-	fmt.Println("  [program] [flag]")
-	Yellow.Println("\nOperational Flags:")
+	fmt.Println("  [program] [optional flag]")
+	Yellow.Println("\n Flags:")
 	Green.Printf("%s", "  -h, --help")
-	fmt.Println("		Help Information")
-	Green.Printf("%s", "  -r, --run")
-	fmt.Println("		Run Program")
+	fmt.Println("	   Help Information")
 	Green.Printf("%s", "  -v, --version")
-	fmt.Println("		Display Program Version")
+	fmt.Println("	   Display Program Version")
 	Yellow.Println("\nExample:")
-	fmt.Println("  Adding your path to file if necessary, run:")
-	Green.Printf("%s", "    bowerbird -r")
+	fmt.Println("  , run:")
+	Green.Printf("%s", "    bowerbird")
 	Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
 	Green.Println("    https://github.com/farghul/bowerbird.git")

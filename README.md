@@ -44,24 +44,16 @@ meta     string = "/data/automation/jsons/"
 temp     string = "/data/automation/temp/"
 ```
 
-Then, from the root folder containing `main.go`, use the command that matches your environment:
-
-### Windows & Mac:
+Then, from the root folder containing `main.go`, run:
 
 ``` zsh
-go build -o [name] .
-```
-
-### Linux:
-
-``` zsh
-GOOS=linux GOARCH=amd64 go build -o [name] .
+go build -o bowerbird .
 ```
 
 ## 🏃 Run
 
 ``` zsh
-bowerbird -r
+bowerbird
 ```
 
 ## 🎏 Available Flags
@@ -69,7 +61,6 @@ bowerbird -r
 | Command               | Action                      |
 |:----------------------|:----------------------------|
 |    `-h, --help`       |   Help information          |
-|    `-r, --run`        |   Run program               |
 |    `-v, --version`    |   Display program version   |
 
 ## 🎫 License
