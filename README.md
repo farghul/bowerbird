@@ -53,15 +53,16 @@ go build -o bowerbird .
 ## 🏃 Run
 
 ``` zsh
-bowerbird
+bowerbird -u
 ```
 
 ## 🎏 Available Flags
 
 | Command               | Action                      |
 |:----------------------|:----------------------------|
-|    `-h, --help`       |   Help information          |
-|    `-v, --version`    |   Display program version   |
+|    `-h, -help`        |   Help information          |
+|    `-u, -update`      |   Run main program          |
+|    `-v, -version`     |   Display program version   |
 
 ## 🎫 License
 

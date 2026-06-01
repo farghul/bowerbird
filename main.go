@@ -1,33 +1,42 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 )
 
 // Launch the program and execute as directed by the supplied flag
 func main() {
-	orders := flag()
-	extra = false
-	logo()
+	helpshort := flag.Bool("h", false, "Display help information")
+	helplong := flag.Bool("help", false, "Display help information")
+	updateshort := flag.Bool("u", false, "Display help information")
+	updatelong := flag.Bool("update", false, "Display help information")
+	versionshort := flag.Bool("v", false, "Display Program Version")
+	versionlong := flag.Bool("version", false, "Display Program Version")
+	flag.Parse()
 
-	switch orders {
-	case "-h", "--help":
-		help()
-	case "-u", "--update":
-		credits()
-		active = 0
-		serialize()
-		for _, element := range brands {
-			engine(element)
+	if flag.NFlag() > 0 {
+		switch {
+		case *helpshort, *helplong:
+			help()
+		case *updateshort, *updatelong:
+			logo()
+			credits()
+			active = 0
+			serialize()
+			for _, element := range brands {
+				engine(element)
+			}
+			if active > 0 {
+				inform("Pushing to repository")
+				push()
+			}
+		case *versionshort, *versionlong:
+			Orange.Println(bv)
 		}
-		if active > 0 {
-			inform("Pushing to repository")
-			push()
-		}
-	case "-v", "--version":
-	default:
-		alert("Unknown argument(s) - ")
+	} else {
+		alert("No arguments found - ")
 	}
 }
 
@@ -50,15 +59,17 @@ func alert(message string) {
 // Print help information for using the program
 func help() {
 	Yellow.Println("\nUsage:")
-	fmt.Println("  [program] [optional flag]")
+	fmt.Println("  [program] [flag]")
 	Yellow.Println("\n Flags:")
-	Green.Printf("%s", "  -h, --help")
+	Green.Printf("%s", "  -h, -help")
 	fmt.Println("	   Help Information")
-	Green.Printf("%s", "  -v, --version")
+	Green.Printf("%s", "  -u, -update")
+	fmt.Println("	   Run main program")
+	Green.Printf("%s", "  -v, -version")
 	fmt.Println("	   Display Program Version")
-	Yellow.Println("\nExample:")
+	Yellow.Println("\nRun:")
 	fmt.Println("  From the folder containing your compiled executable, run:")
-	Green.Printf("%s", "    bowerbird")
+	Green.Printf("%s", "    bowerbird -u")
 	Yellow.Println("\nHelp:")
 	fmt.Println("  For more information go to:")
 	Green.Println("    https://github.com/farghul/bowerbird.git")

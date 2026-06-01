@@ -9,17 +9,6 @@ import (
 	"strings"
 )
 
-// Test for an optional flag
-func flag() string {
-	var passed string
-	if len(os.Args) == 1 {
-		passed = "--update"
-	} else {
-		passed = os.Args[1]
-	}
-	return passed
-}
-
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func serialize() {
 	clearout(temp)
