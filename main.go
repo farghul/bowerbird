@@ -10,8 +10,8 @@ import (
 func main() {
 	helpshort := flag.Bool("h", false, "Display help information")
 	helplong := flag.Bool("help", false, "Display help information")
-	updateshort := flag.Bool("u", false, "Display help information")
-	updatelong := flag.Bool("update", false, "Display help information")
+	updateshort := flag.Bool("u", false, "Run main program")
+	updatelong := flag.Bool("update", false, "Run main program")
 	versionshort := flag.Bool("v", false, "Display Program Version")
 	versionlong := flag.Bool("version", false, "Display Program Version")
 	flag.Parse()
