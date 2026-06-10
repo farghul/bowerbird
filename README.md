@@ -2,7 +2,7 @@
 
 Bowerbird is a WordPress plugin update install tool. It queries a Jira API to find and simplify the process of updating WordPress plugins, while still tracking them via Jira tickets. Meant for an environment where strict version control is needed. Named after an industrious creature who excels at building.
 
-![Bird](bowerbird.webp)
+![Bird](bowerbird.png)
 
 ## 📚 Prerequisites
 
