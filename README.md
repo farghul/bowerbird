@@ -2,8 +2,6 @@
 
 Bowerbird is a WordPress plugin update install tool. It queries a Jira API to find and simplify the process of updating WordPress plugins, while still tracking them via Jira tickets. Meant for an environment where strict version control is needed. Named after an industrious creature who excels at building.
 
-![Bird](bowerbird.png)
-
 ## 📚 Prerequisites
 
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
@@ -20,19 +18,21 @@ Inside of your Bowerbird project, you'll see the following folders and files:
 
 ``` zsh
 .
+├── cmd/
+│   ├── main.go
+├── internal/
+│   ├── tools.go
+│   ├── vars.go
 ├── jsons/
 │   ├── definitions.json
 │   ├── jira.json
+├── workers/
+│   ├── packagist.go
+│   ├── tasks.go
 ├── .gitignore
-├── bowerbird.webp
 ├── go.mod
 ├── LICENSE.md
-├── main.go
-├── packagist.go
 ├── README.md
-├── tasks.go
-├── tools.go
-└── vars.go
 ```
 
 ## 🚧 Build

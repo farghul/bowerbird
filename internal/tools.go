@@ -1,4 +1,4 @@
-package main
+package internal
 
 import (
 	"fmt"
@@ -13,7 +13,7 @@ type ExecOptions struct {
 	Dir    string
 }
 
-func execute(task string, args []string, opts ExecOptions) ([]byte, error) {
+func Execute(task string, args []string, opts ExecOptions) ([]byte, error) {
 	cmd := exec.Command(task, args...)
 	cmd.Env = append(os.Environ(), opts.Env...)
 	cmd.Dir = opts.Dir
@@ -28,25 +28,31 @@ func execute(task string, args []string, opts ExecOptions) ([]byte, error) {
 }
 
 // Check for errors, print the result if found
-func inspect(err error) {
+func Inspect(err error) {
 	if err != nil {
 		log.Fatal(err)
 		return
 	}
 }
 
-// Println function for colourized text
-func (c Color) Println(text string) {
-	fmt.Println(string(c) + text + Reset)
+// Provide and highlight an informational message
+func Inform(message string) {
+	Yellow.Printf("%s", "** ")
+	fmt.Print(message)
+	Yellow.Println(" **")
 }
 
-// Printf function for colourized text
-func (c Color) Printf(format string, a ...any) {
-	fmt.Printf(string(c)+format+Reset, a...)
+// Print a colourized error message
+func Alert(message string) {
+	Red.Printf("\n%s", "Error: ")
+	fmt.Printf("%s", message)
+	BGRed.Println(Halt)
+	Inform("Use -h to display help information")
+	os.Exit(0)
 }
 
 // Empty the contents a folder
-func clearout(path string) {
+func Clearout(path string) {
 	list := ls(path)
 	for _, file := range list {
 		sweep(path + file)
@@ -55,7 +61,7 @@ func clearout(path string) {
 
 // Remove files or directories
 func sweep(cut ...string) {
-	inspect(os.RemoveAll(cut[0.]))
+	Inspect(os.RemoveAll(cut[0.]))
 }
 
 // Record a list of files in a folder
@@ -64,7 +70,7 @@ func ls(folder string) []string {
 	dir := expose(folder)
 
 	files, err := dir.ReadDir(0)
-	inspect(err)
+	Inspect(err)
 
 	for _, f := range files {
 		content = append(content, f.Name())
@@ -75,6 +81,16 @@ func ls(folder string) []string {
 // Open a file for reading and return an os.File variable
 func expose(file string) *os.File {
 	outcome, err := os.Open(file)
-	inspect(err)
+	Inspect(err)
 	return outcome
+}
+
+// Println function for colourized text
+func (c Color) Println(text string) {
+	fmt.Println(string(c) + text + Reset)
+}
+
+// Printf function for colourized text
+func (c Color) Printf(format string, a ...any) {
+	fmt.Printf(string(c)+format+Reset, a...)
 }

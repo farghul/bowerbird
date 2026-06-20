@@ -1,12 +1,12 @@
-package main
+package internal
 
 // Definitions holds the path to the WordPress repository
 type Definitions struct {
 	WordPress string `json:"wordpress"`
 }
 
-// Jira builds a list of Jira API addresses
-type Jira struct {
+// Atlassian builds a list of Jira API addresses
+type Atlassian struct {
 	Review string `json:"review"`
 	Search string `json:"search"`
 	Token  string `json:"token"`
@@ -43,20 +43,20 @@ const (
 	BGRed    Color  = "\033[41m"
 	BGYellow Color  = "\033[43m"
 	Orange   Color  = "\033[38;5;214m"
-	bv       string = "1.0.0"
-	halt     string = "program halted "
+	BV       string = "1.0.0"
+	Halt     string = "program halted "
 	meta     string = "/data/automation/jsons/"
-	temp     string = "/data/automation/temp/"
+	Temp     string = "/data/automation/temp/"
 )
 
 var (
-	active int
-	query  JQL
-	jira   Jira
-	extra  bool
-	plugin string
-	ticket string
-	defs   Definitions
-	brands = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	jsons  = []string{meta + "definitions.json", meta + "jira.json"}
+	Active int
+	Query  JQL
+	Extra  bool
+	Plugin string
+	Ticket string
+	Defs   Definitions
+	Jira   Atlassian
+	Brands = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
+	Jsons  = []string{meta + "definitions.json", meta + "jira.json"}
 )
