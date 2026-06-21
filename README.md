@@ -47,7 +47,7 @@ temp     string = "/data/automation/temp/"
 Then, from the root folder containing `main.go`, run:
 
 ``` zsh
-go build -o bowerbird .
+go build -o bowerbird cmd/main.go
 ```
 
 ## 🏃 Run
