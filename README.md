@@ -6,7 +6,7 @@ Bowerbird is a WordPress plugin update install tool. It queries a Jira API to fi
 
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
 
-An selection of `json` files to enable authorized Jira API querying, and everything needed to push plugin update files to a repository (see `jsons` folder for reference).
+A `bowerbird.json` file to enable authorized Jira API querying, and everything needed to push plugin update files to a repository (see `json` folder for reference).
 
 ## 🔩 Function
 
@@ -23,9 +23,8 @@ Inside of your Bowerbird project, you'll see the following folders and files:
 ├── internal/
 │   ├── tools.go
 │   ├── vars.go
-├── jsons/
-│   ├── definitions.json
-│   ├── jira.json
+├── json/
+│   ├── bowerbird.json.example
 ├── workers/
 │   ├── packagist.go
 │   ├── tasks.go
@@ -37,11 +36,11 @@ Inside of your Bowerbird project, you'll see the following folders and files:
 
 ## 🚧 Build
 
-Before building the application, change the value of the `meta` and `temp` constants to reflect your environment:
+Before building the application, change the value of the `Temp` and `Meta` constants to reflect your environment:
 
 ``` go
-meta     string = "/data/automation/jsons/"
-temp     string = "/data/automation/temp/"
+Temp     string = "/data/automation/temp/"
+Meta     string = "/data/automation/jsons/bowerbird.json"
 ```
 
 Then, run the `go build` command:

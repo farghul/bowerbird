@@ -8,14 +8,14 @@ import (
 
 // Execute the main set of program functions
 func Engine(element string) {
-	result := Compiler(element)
+	result := compiler(element)
 	if len(result) > 0 {
 		internal.Active++
-		Rightplace()
+		rightplace()
 		prepare()
 		packagist(result)
 	} else {
-		fmt.Println("No " + element + " update tickets to process.")
+		fmt.Println("\nNo " + element + " update tickets to process.")
 	}
 }
 
@@ -42,14 +42,14 @@ func sift(box []string) {
 		internal.Plugin = box[i]
 		i++
 		internal.Ticket = box[i]
-		Require()
-		Commit()
+		require()
+		commit()
 	}
 }
 
 // Run the appropriate composer require command
-func Require() {
-	if Edge() {
+func require() {
+	if edge() {
 		internal.Execute("composer", []string{"require", internal.Plugin, "-W", "--no-install"}, internal.ExecOptions{Stream: true})
 	} else {
 		internal.Execute("composer", []string{"require", internal.Plugin, "--no-install"}, internal.ExecOptions{Stream: true})
@@ -57,7 +57,7 @@ func Require() {
 }
 
 // Add and commit the update
-func Commit() {
+func commit() {
 	internal.Execute("git", []string{"add", "."}, internal.ExecOptions{Stream: true})
 	internal.Execute("git", []string{"commit", "-m", internal.Ticket, "-m", "Install " + internal.Plugin}, internal.ExecOptions{Stream: true})
 }

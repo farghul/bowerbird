@@ -14,29 +14,20 @@ import (
 // Read the JSON files and Unmarshal the data into the appropriate Go structure
 func Serialize() {
 	internal.Clearout(internal.Temp)
-	for index, element := range internal.Jsons {
-		data, err := os.ReadFile(element)
-		internal.Inspect(err)
-		switch index {
-		case 0:
-			err := json.Unmarshal(data, &internal.Defs)
-			internal.Inspect(err)
-		case 1:
-			err := json.Unmarshal(data, &internal.Jira)
-			internal.Inspect(err)
-		}
-	}
+	data, _ := os.ReadFile(internal.Meta)
+	err := json.Unmarshal(data, &internal.Defs)
+	internal.Inspect(err)
 }
 
 // Compile the results of a Jira API query and save summary and key into a string slice
-func Compiler(element string) []string {
+func compiler(element string) []string {
 	var data []byte
 	var err error
 	if element == "premium" {
-		data, err = API(internal.Jira.Basic + internal.Jira.Review)
+		data, err = api(internal.Defs.Basic + internal.Defs.Review)
 		internal.Inspect(err)
 	} else {
-		data, err = API(internal.Jira.Basic + internal.Jira.ToDo)
+		data, err = api(internal.Defs.Basic + internal.Defs.ToDo)
 		internal.Inspect(err)
 	}
 	err = json.Unmarshal(data, &internal.Query)
@@ -52,8 +43,8 @@ func Compiler(element string) []string {
 	return candidate
 }
 
-func API(criteria string) ([]byte, error) {
-	baseURL := internal.Jira.URL + "search/jql?jql="
+func api(criteria string) ([]byte, error) {
+	baseURL := internal.Defs.URL + "search/jql?jql="
 
 	fullURL := baseURL + criteria
 
@@ -64,7 +55,7 @@ func API(criteria string) ([]byte, error) {
 	}
 
 	// Set headers
-	req.Header.Set("Authorization", "Basic "+internal.Jira.Token)
+	req.Header.Set("Authorization", "Basic "+internal.Defs.Token)
 	req.Header.Set("Accept", "application/json")
 
 	// Execute request
@@ -84,7 +75,7 @@ func API(criteria string) ([]byte, error) {
 }
 
 // Confirm the current working directory is correct
-func Rightplace() {
+func rightplace() {
 	err := os.Chdir(internal.Defs.WordPress)
 	internal.Inspect(err)
 	var filePath string = "composer-prod.json"
@@ -95,7 +86,7 @@ func Rightplace() {
 }
 
 // Check for edge cases which require the -W flag
-func Edge() bool {
+func edge() bool {
 	found := false
 	if strings.Contains(internal.Plugin, "roots/wordpress") {
 		found = true

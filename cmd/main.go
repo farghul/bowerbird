@@ -26,6 +26,7 @@ func main() {
 			logo()
 			credits()
 			internal.Active = 0
+			workers.Serialize()
 
 			for _, element := range internal.Brands {
 				workers.Engine(element)

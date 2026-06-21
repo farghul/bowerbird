@@ -2,17 +2,13 @@ package internal
 
 // Definitions holds the path to the WordPress repository
 type Definitions struct {
+	Review    string `json:"review"`
+	Search    string `json:"search"`
+	Token     string `json:"token"`
+	ToDo      string `json:"todo"`
+	Basic     string `json:"basic"`
+	URL       string `json:"url"`
 	WordPress string `json:"wordpress"`
-}
-
-// Atlassian builds a list of Jira API addresses
-type Atlassian struct {
-	Review string `json:"review"`
-	Search string `json:"search"`
-	Token  string `json:"token"`
-	ToDo   string `json:"todo"`
-	Basic  string `json:"basic"`
-	URL    string `json:"url"`
 }
 
 // JQL holds the extracted data from the JQL queries
@@ -45,8 +41,8 @@ const (
 	Orange   Color  = "\033[38;5;214m"
 	BV       string = "1.0.0"
 	Halt     string = "program halted "
-	meta     string = "/data/automation/jsons/"
 	Temp     string = "/data/automation/temp/"
+	Meta     string = "/data/automation/jsons/bowerbird.json"
 )
 
 var (
@@ -56,7 +52,5 @@ var (
 	Plugin string
 	Ticket string
 	Defs   Definitions
-	Jira   Atlassian
 	Brands = []string{"freemius", "premium", "roots", "wpackagist", "wpengine"}
-	Jsons  = []string{meta + "definitions.json", meta + "jira.json"}
 )

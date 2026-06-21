@@ -24,7 +24,8 @@ Thumbs.db
 *.tmp
 *~
 
-# Exclude specified directories
+# Exclude specified directories and files
+bowerbird.json
 local/
 scripts/
 temp/
