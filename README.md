@@ -44,7 +44,7 @@ meta     string = "/data/automation/jsons/"
 temp     string = "/data/automation/temp/"
 ```
 
-Then, from the root folder containing `main.go`, run:
+Then, run the `go build` command:
 
 ``` zsh
 go build -o bowerbird cmd/main.go
